@@ -4,6 +4,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryCalc", "SalaryCalc\SalaryCalc.csproj", "{58171C9E-1D88-430A-8276-82A26D19BF79}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BCDF76F3-7E53-4A01-80E4-4405CABE809A} = {BCDF76F3-7E53-4A01-80E4-4405CABE809A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{D33A6D85-86BE-47EB-9076-E5D50DC6C75D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97} = {D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{DD9F9299-21F5-42F8-8F99-5655E049712F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D33A6D85-86BE-47EB-9076-E5D50DC6C75D} = {D33A6D85-86BE-47EB-9076-E5D50DC6C75D}
+		{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97} = {D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{BCDF76F3-7E53-4A01-80E4-4405CABE809A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D33A6D85-86BE-47EB-9076-E5D50DC6C75D} = {D33A6D85-86BE-47EB-9076-E5D50DC6C75D}
+		{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97} = {D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}
+		{DD9F9299-21F5-42F8-8F99-5655E049712F} = {DD9F9299-21F5-42F8-8F99-5655E049712F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +38,22 @@ Global
 		{58171C9E-1D88-430A-8276-82A26D19BF79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58171C9E-1D88-430A-8276-82A26D19BF79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58171C9E-1D88-430A-8276-82A26D19BF79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D33A6D85-86BE-47EB-9076-E5D50DC6C75D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D33A6D85-86BE-47EB-9076-E5D50DC6C75D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D33A6D85-86BE-47EB-9076-E5D50DC6C75D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D33A6D85-86BE-47EB-9076-E5D50DC6C75D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD9F9299-21F5-42F8-8F99-5655E049712F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD9F9299-21F5-42F8-8F99-5655E049712F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD9F9299-21F5-42F8-8F99-5655E049712F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD9F9299-21F5-42F8-8F99-5655E049712F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCDF76F3-7E53-4A01-80E4-4405CABE809A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDF76F3-7E53-4A01-80E4-4405CABE809A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCDF76F3-7E53-4A01-80E4-4405CABE809A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDF76F3-7E53-4A01-80E4-4405CABE809A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
