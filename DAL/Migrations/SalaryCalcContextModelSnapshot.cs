@@ -236,10 +236,7 @@ namespace DAL.Migrations
             modelBuilder.Entity("Core.Entities.Parameter", b =>
                 {
                     b.Property<int>("Year")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Year"));
 
                     b.Property<double>("HealthAndSocialInsurancePercentage")
                         .HasColumnType("float");

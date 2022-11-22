@@ -10,6 +10,7 @@ namespace DAL.Configs
         {
             builder.HasKey(x => x.Year);
 
+            builder.Property(x => x.Year).ValueGeneratedNever();
             builder.Property(x => x.MinThreshold).IsRequired();
             builder.Property(x => x.MaxThreshold).IsRequired();
             builder.Property(x => x.TotalIncomeTaxPercentage).IsRequired();
