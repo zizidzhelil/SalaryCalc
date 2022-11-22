@@ -2,8 +2,6 @@
 {
     public class Parameter
     {
-        public int Id { get; set; }
-
         public int Year { get; set; }
 
         public double MinThreshold { get; set; }
@@ -14,6 +12,6 @@
 
         public double MaxThreshold { get; set; }
 
-        public Employee Employee { get; set; }
+        public ICollection<EmployeeParameter> Parameters { get; set; }
     }
 }

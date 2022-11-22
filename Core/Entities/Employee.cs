@@ -11,5 +11,7 @@
         public string LastName { get; set; }
 
         public DateTime BirthDate { get; set; }
+
+        public ICollection<EmployeeParameter> Parameters { get; set; }    
     }
 }
