@@ -22,5 +22,12 @@ namespace SalaryCalc.Controllers
 			IList<EmployeesResponseModel> employeessResponse = await _mediator.Send(new GetEmployeesRequestModel());
 			return employeessResponse;
 		}
+
+		[HttpPost]
+		public async Task<IActionResult> Post([FromBody] PostEmployeeRequestModel model)
+		{
+			await _mediator.Send(model);
+			return NoContent();
+		}
 	}
 }

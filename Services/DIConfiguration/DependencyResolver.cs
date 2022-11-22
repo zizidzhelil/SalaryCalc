@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Core.Queries;
 using Core.Entities;
 using DAL.Queries.GetAllEmployees;
+using Core.Commands;
+using DAL.Commands.InsertEmployee;
 
 namespace Services.DIConfiguration
 {
@@ -19,6 +21,9 @@ namespace Services.DIConfiguration
 
             // Queries
             serviceCollection.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<Employee>>, GetAllEmployeesQueryHandler>();
+
+            // Commands
+            serviceCollection.AddScoped<ICommandHandler<InsertEmployeeCommand>, InsertEmployeeCommandHandler>();
 
             return serviceCollection;
         }

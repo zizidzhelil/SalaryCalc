@@ -28,7 +28,6 @@ namespace SalaryCalc
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();

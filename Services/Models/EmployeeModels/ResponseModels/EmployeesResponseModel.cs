@@ -20,7 +20,7 @@ namespace Services.Models.EmployeeModels.ResponseModels
 			}
 		}
 
-		public long Id { get; set; }
+		public int Id { get; set; }
 
 		public string FirstName { get; set; }
 
