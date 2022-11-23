@@ -11,6 +11,9 @@ using DAL.Commands.InsertParameter;
 using DAL.Queries.GetAllParameters;
 using DAL.Commands.UpdateParameter;
 using DAL.Commands.CalculateSalary;
+using Core.Validation;
+using Services.Models.ParameterModels.RequestModels;
+using Services.Validations;
 
 namespace Services.DIConfiguration
 {
@@ -32,6 +35,9 @@ namespace Services.DIConfiguration
             serviceCollection.AddScoped<ICommandHandler<InsertEmployeeCommand>, InsertEmployeeCommandHandler>();
             serviceCollection.AddScoped<ICommandHandler<InsertParameterCommand>, InsertParameterCommandHandler>();
             serviceCollection.AddScoped<ICommandHandler<UpdateParameterCommand>, UpdateParameterCommandHandler>();
+
+            // Validations
+            serviceCollection.AddScoped<IValidation<PutParameterRequestModel>, PutParameterRequestModelValidator>();
 
             return serviceCollection;
         }
