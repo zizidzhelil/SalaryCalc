@@ -14,7 +14,9 @@ namespace Services.Handlers.EmployeeHandlers
 		private readonly IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter> _queryHandler;
 		private readonly ILogger _logger;
 
-		public GetEmpAnnualSalaryForYearHandler(IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter> queryHandler, ILogger logger)
+		public GetEmpAnnualSalaryForYearHandler(IQueryHandler<GetEmpAnnualSalaryForYearQuery, 
+			EmployeeParameter> queryHandler, 
+			ILogger<GetEmpAnnualSalaryForYearHandler> logger)
 		{
 			_queryHandler = queryHandler;
 			_logger = logger;

@@ -34,9 +34,9 @@ namespace Services.Handlers.CalculateSalaryHandlers
 
 			if(request.GrossSalary == null)
 			{
-
+				//TODO
 			}
-			
+
 			SalaryAndTaxes salaryAndTaxes = new()
 			{
 				GrossSalary = request.GrossSalary //TODO: or from db
