@@ -11,7 +11,7 @@ namespace Services.Validations
 	{
 		private readonly ILogger _logger;
 
-		public PostEmployeeRequestModelValidator(ILogger logger)
+		public PostEmployeeRequestModelValidator(ILogger<PostEmployeeRequestModelValidator> logger)
 		{
 			_logger = logger;
 		}

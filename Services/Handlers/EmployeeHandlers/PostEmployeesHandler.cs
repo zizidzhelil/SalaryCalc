@@ -17,7 +17,7 @@ namespace Services.Handlers.EmployeeHandlers
 		public PostEmployeesHandler(
 			ICommandHandler<InsertEmployeeCommand> insertEmployeeCommandHandler,
 			IValidation<PostEmployeeRequestModel> validator,
-			ILogger logger)
+			ILogger<PostEmployeesHandler> logger)
 		{
 			_insertEmployeeCommandHandler = insertEmployeeCommandHandler;
 			_validator = validator;

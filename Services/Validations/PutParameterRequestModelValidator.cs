@@ -10,11 +10,10 @@ namespace Services.Validations
 	{
 		private readonly ILogger _logger;
 
-		public PutParameterRequestModelValidator(ILogger logger)
+		public PutParameterRequestModelValidator(ILogger<PutParameterRequestModelValidator> logger)
 		{
 			_logger = logger;
 		}
-
 		public async Task Validate(PutParameterRequestModel model, CancellationToken cancellationToken = default)
 		{
 			List<string> errorMessages = new List<string>();

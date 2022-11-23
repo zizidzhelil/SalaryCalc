@@ -15,7 +15,7 @@ namespace Services.Handlers.ParameterHandlers
 		private readonly ILogger _logger;
 		public GetParametersHandler(
 			IQueryHandler<GetAllParametersQuery, IList<Parameter>> queryHandler,
-			ILogger logger)
+			ILogger<GetParametersHandler> logger)
 		{
 			this._queryHandler = queryHandler;
 			_logger = logger;

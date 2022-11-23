@@ -16,6 +16,7 @@ using Services.Models.ParameterModels.RequestModels;
 using Services.Validations;
 using Services.Models.EmployeeModels.RequestModels;
 using Services.Models.CalculateSalaryModels.RequestModels;
+using DAL.Queries.GetYearParams;
 
 namespace Services.DIConfiguration
 {
@@ -32,6 +33,7 @@ namespace Services.DIConfiguration
             serviceCollection.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<Employee>>, GetAllEmployeesQueryHandler>();
             serviceCollection.AddScoped<IQueryHandler<GetAllParametersQuery, IList<Parameter>>, GetAllParametersQueryHandler>();
             serviceCollection.AddScoped<IQueryHandler<CalculateSalaryQuery, SalaryAndTaxes>, CalculateSalaryQueryHandler>();
+            serviceCollection.AddScoped<IQueryHandler<GetYearParamsQuery, Parameter>, GetYearParamsQueryHandler>();
 
             // Commands
             serviceCollection.AddScoped<ICommandHandler<InsertEmployeeCommand>, InsertEmployeeCommandHandler>();
@@ -43,6 +45,7 @@ namespace Services.DIConfiguration
             serviceCollection.AddScoped<IValidation<PostParameterRequestModel>, PostParameterRequestModelValidator>();
             serviceCollection.AddScoped<IValidation<PostEmployeeRequestModel>, PostEmployeeRequestModelValidator>();
             serviceCollection.AddScoped<IValidation<CalculateSalaryRequestModel>, CalculateSalaryRequestModelValidator>();
+            serviceCollection.AddScoped<IValidation<GetYearParamsRequestModel>, GetYearParamsRequestModelValidator>();
 
             return serviceCollection;
         }

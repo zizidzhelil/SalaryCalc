@@ -3,30 +3,36 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryCalc", "SalaryCalc\SalaryCalc.csproj", "{58171C9E-1D88-430A-8276-82A26D19BF79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalaryCalc", "SalaryCalc\SalaryCalc.csproj", "{58171C9E-1D88-430A-8276-82A26D19BF79}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BCDF76F3-7E53-4A01-80E4-4405CABE809A} = {BCDF76F3-7E53-4A01-80E4-4405CABE809A}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{D33A6D85-86BE-47EB-9076-E5D50DC6C75D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{D33A6D85-86BE-47EB-9076-E5D50DC6C75D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97} = {D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{DD9F9299-21F5-42F8-8F99-5655E049712F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{DD9F9299-21F5-42F8-8F99-5655E049712F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D33A6D85-86BE-47EB-9076-E5D50DC6C75D} = {D33A6D85-86BE-47EB-9076-E5D50DC6C75D}
 		{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97} = {D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{BCDF76F3-7E53-4A01-80E4-4405CABE809A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{BCDF76F3-7E53-4A01-80E4-4405CABE809A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D33A6D85-86BE-47EB-9076-E5D50DC6C75D} = {D33A6D85-86BE-47EB-9076-E5D50DC6C75D}
 		{D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97} = {D8C7ABC5-A80B-42C2-A8E9-BEE8979A8C97}
 		{DD9F9299-21F5-42F8-8F99-5655E049712F} = {DD9F9299-21F5-42F8-8F99-5655E049712F}
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{37F995B5-F4BD-4D5A-92A6-C21D72FF3D0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Tests", "Services.Tests\Services.Tests.csproj", "{658CA41E-C86D-4EC9-8F5A-F7B031F0082D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryCalc.Tests", "SalaryCalc.Tests\SalaryCalc.Tests.csproj", "{08530B3E-587E-4FFC-AECB-70289FA94428}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,9 +60,21 @@ Global
 		{BCDF76F3-7E53-4A01-80E4-4405CABE809A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCDF76F3-7E53-4A01-80E4-4405CABE809A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCDF76F3-7E53-4A01-80E4-4405CABE809A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{658CA41E-C86D-4EC9-8F5A-F7B031F0082D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{658CA41E-C86D-4EC9-8F5A-F7B031F0082D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{658CA41E-C86D-4EC9-8F5A-F7B031F0082D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{658CA41E-C86D-4EC9-8F5A-F7B031F0082D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08530B3E-587E-4FFC-AECB-70289FA94428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08530B3E-587E-4FFC-AECB-70289FA94428}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08530B3E-587E-4FFC-AECB-70289FA94428}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08530B3E-587E-4FFC-AECB-70289FA94428}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{658CA41E-C86D-4EC9-8F5A-F7B031F0082D} = {37F995B5-F4BD-4D5A-92A6-C21D72FF3D0C}
+		{08530B3E-587E-4FFC-AECB-70289FA94428} = {37F995B5-F4BD-4D5A-92A6-C21D72FF3D0C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F212BA1C-3433-4D01-9B02-EF91DB4A87F7}

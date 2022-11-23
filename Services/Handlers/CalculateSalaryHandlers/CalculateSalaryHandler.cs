@@ -19,7 +19,7 @@ namespace Services.Handlers.CalculateSalaryHandlers
 		public CalculateSalaryHandler(
 			IQueryHandler<CalculateSalaryQuery, SalaryAndTaxes> queryHandler,
 			IValidation<CalculateSalaryRequestModel> validator,
-			ILogger logger)
+			ILogger<CalculateSalaryHandler> logger)
 		{
 			_queryHandler = queryHandler;
 			_validator = validator;

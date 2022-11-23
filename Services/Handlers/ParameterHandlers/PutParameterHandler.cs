@@ -17,7 +17,7 @@ namespace Services.Handlers.ParameterHandlers
 		public PutParameterHandler(
 			ICommandHandler<UpdateParameterCommand> commandHandler,
 			IValidation<PutParameterRequestModel> validator,
-			ILogger logger)
+			ILogger<PutParameterHandler> logger)
 		{
 			_commandHandler = commandHandler;
 			_validator = validator;

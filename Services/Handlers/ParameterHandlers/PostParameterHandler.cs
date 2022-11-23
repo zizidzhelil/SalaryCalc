@@ -17,7 +17,7 @@ namespace Services.Handlers.ParameterHandlers
 		public PostParameterHandler(
 			ICommandHandler<InsertParameterCommand> insertParameterCommandHandler,
 			IValidation<PostParameterRequestModel> validator,
-			ILogger logger)
+			ILogger<PostParameterHandler> logger)
 		{
 			_insertParameterCommandHandler = insertParameterCommandHandler;
 			_validator = validator;

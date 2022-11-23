@@ -3,34 +3,37 @@ using Services.DIConfiguration;
 
 namespace SalaryCalc
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            builder.Services.RegisterTypes(builder.Configuration);
+			builder.Logging.ClearProviders();
+			builder.Logging.AddConsole();
 
-            builder.Services.AddMediatR(typeof(DependencyResolver).Assembly);
+			builder.Services.AddControllers();
+			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddSwaggerGen();
+			builder.Services.RegisterTypes(builder.Configuration);
 
-            var app = builder.Build();
+			builder.Services.AddMediatR(typeof(DependencyResolver).Assembly);
 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+			var app = builder.Build();
 
-            app.UseHttpsRedirection();
+			if (app.Environment.IsDevelopment())
+			{
+				app.UseSwagger();
+				app.UseSwaggerUI();
+			}
 
-            app.UseAuthorization();
+			app.UseHttpsRedirection();
 
-            app.MapControllers();
+			app.UseAuthorization();
 
-            app.Run();
-        }
-    }
+			app.MapControllers();
+
+			app.Run();
+		}
+	}
 }

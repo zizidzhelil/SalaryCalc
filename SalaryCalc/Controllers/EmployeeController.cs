@@ -13,7 +13,7 @@ namespace SalaryCalc.Controllers
 		private readonly IMediator _mediator;
 		private readonly ILogger _logger;
 
-		public EmployeeController(IMediator mediator, ILogger logger)
+		public EmployeeController(IMediator mediator, ILogger<EmployeeController> logger)
 		{
 			_mediator = mediator;
 			_logger = logger;

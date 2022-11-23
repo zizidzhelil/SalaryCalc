@@ -15,7 +15,7 @@ namespace Services.Handlers.StudentHandlers
 		private readonly ILogger _logger;
 		public GetEmployeesHandler(
 			IQueryHandler<GetAllEmployeesQuery, IList<Employee>> getAllStudentsQueryHandler,
-			ILogger logger)
+			ILogger<GetEmployeesHandler> logger)
 		{
 			_getAllEmployeesQueryHandler = getAllStudentsQueryHandler;
 			_logger = logger;

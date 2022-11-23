@@ -11,7 +11,7 @@ namespace Services.Validations
 	{
 		private readonly ILogger _logger;
 
-		public PostParameterRequestModelValidator(ILogger logger)
+		public PostParameterRequestModelValidator(ILogger<PostParameterRequestModelValidator> logger)
 		{
 			_logger = logger;
 		}
