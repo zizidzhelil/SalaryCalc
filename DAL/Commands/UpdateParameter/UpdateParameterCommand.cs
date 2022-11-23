@@ -1,10 +1,10 @@
 ﻿using Core.Commands;
 
-namespace DAL.Commands.InsertParameter
+namespace DAL.Commands.UpdateParameter
 {
-	public class InsertParameterCommand : ICommand
+	public class UpdateParameterCommand : ICommand
 	{
-		public InsertParameterCommand(
+		public UpdateParameterCommand(
 			int year,
 			double minThreshold,
 			double totalIncomeTaxPercentage,

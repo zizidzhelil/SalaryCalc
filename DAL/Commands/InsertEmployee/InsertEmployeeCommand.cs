@@ -16,12 +16,12 @@ namespace DAL.Commands.InsertEmployee
 			BirthDate = birthDate;
 		}
 
-		public string FirstName { get; set; }
+		public string FirstName { get; }
 
-		public string MiddleName { get; set; }
+		public string MiddleName { get; }
 
-		public string LastName { get; set; }
+		public string LastName { get; }
 
-		public DateTime BirthDate { get; set; }
+		public DateTime BirthDate { get; }
 	}
 }

@@ -28,5 +28,12 @@ namespace SalaryCalc.Controllers
 			await _mediator.Send(model);
 			return NoContent();
 		}
+
+		[HttpPut]
+		public async Task<IActionResult> Put([FromBody] PutParameterRequestModel model)
+		{
+			await _mediator.Send(model);
+			return NoContent();
+		}
 	}
 }

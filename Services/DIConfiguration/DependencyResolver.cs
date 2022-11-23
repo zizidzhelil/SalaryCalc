@@ -9,6 +9,7 @@ using DAL.Queries.GetAllEmployees;
 using DAL.Commands.InsertEmployee;
 using DAL.Commands.InsertParameter;
 using DAL.Queries.GetAllParameters;
+using DAL.Commands.UpdateParameter;
 
 namespace Services.DIConfiguration
 {
@@ -28,6 +29,7 @@ namespace Services.DIConfiguration
             // Commands
             serviceCollection.AddScoped<ICommandHandler<InsertEmployeeCommand>, InsertEmployeeCommandHandler>();
             serviceCollection.AddScoped<ICommandHandler<InsertParameterCommand>, InsertParameterCommandHandler>();
+            serviceCollection.AddScoped<ICommandHandler<UpdateParameterCommand>, UpdateParameterCommandHandler>();
 
             return serviceCollection;
         }
