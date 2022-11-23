@@ -10,6 +10,7 @@ using DAL.Commands.InsertEmployee;
 using DAL.Commands.InsertParameter;
 using DAL.Queries.GetAllParameters;
 using DAL.Commands.UpdateParameter;
+using DAL.Commands.CalculateSalary;
 
 namespace Services.DIConfiguration
 {
@@ -25,6 +26,7 @@ namespace Services.DIConfiguration
             // Queries
             serviceCollection.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<Employee>>, GetAllEmployeesQueryHandler>();
             serviceCollection.AddScoped<IQueryHandler<GetAllParametersQuery, IList<Parameter>>, GetAllParametersQueryHandler>();
+            serviceCollection.AddScoped<IQueryHandler<CalculateSalaryQuery, SalaryAndTaxes>, CalculateSalaryQueryHandler>();
 
             // Commands
             serviceCollection.AddScoped<ICommandHandler<InsertEmployeeCommand>, InsertEmployeeCommandHandler>();
