@@ -14,6 +14,8 @@ using DAL.Commands.CalculateSalary;
 using Core.Validation;
 using Services.Models.ParameterModels.RequestModels;
 using Services.Validations;
+using Services.Models.EmployeeModels.RequestModels;
+using Services.Models.CalculateSalaryModels.RequestModels;
 
 namespace Services.DIConfiguration
 {
@@ -38,6 +40,9 @@ namespace Services.DIConfiguration
 
             // Validations
             serviceCollection.AddScoped<IValidation<PutParameterRequestModel>, PutParameterRequestModelValidator>();
+            serviceCollection.AddScoped<IValidation<PostParameterRequestModel>, PostParameterRequestModelValidator>();
+            serviceCollection.AddScoped<IValidation<PostEmployeeRequestModel>, PostEmployeeRequestModelValidator>();
+            serviceCollection.AddScoped<IValidation<CalculateSalaryRequestModel>, CalculateSalaryRequestModelValidator>();
 
             return serviceCollection;
         }
