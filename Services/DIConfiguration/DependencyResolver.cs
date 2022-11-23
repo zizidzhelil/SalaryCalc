@@ -10,13 +10,13 @@ using DAL.Commands.InsertEmployee;
 using DAL.Commands.InsertParameter;
 using DAL.Queries.GetAllParameters;
 using DAL.Commands.UpdateParameter;
-using DAL.Commands.CalculateSalary;
 using Core.Validation;
 using Services.Models.ParameterModels.RequestModels;
 using Services.Validations;
 using Services.Models.EmployeeModels.RequestModels;
 using Services.Models.CalculateSalaryModels.RequestModels;
 using DAL.Queries.GetYearParams;
+using DAL.Queries.GetEmpAnnualSalaryForYear;
 
 namespace Services.DIConfiguration
 {
@@ -32,8 +32,8 @@ namespace Services.DIConfiguration
             // Queries
             serviceCollection.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<Employee>>, GetAllEmployeesQueryHandler>();
             serviceCollection.AddScoped<IQueryHandler<GetAllParametersQuery, IList<Parameter>>, GetAllParametersQueryHandler>();
-            serviceCollection.AddScoped<IQueryHandler<CalculateSalaryQuery, SalaryAndTaxes>, CalculateSalaryQueryHandler>();
             serviceCollection.AddScoped<IQueryHandler<GetYearParamsQuery, Parameter>, GetYearParamsQueryHandler>();
+            serviceCollection.AddScoped<IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter>, GetEmpAnnualSalaryForYearQueryHandler>();
 
             // Commands
             serviceCollection.AddScoped<ICommandHandler<InsertEmployeeCommand>, InsertEmployeeCommandHandler>();
