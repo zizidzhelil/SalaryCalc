@@ -2,6 +2,7 @@
 using Core.Entities;
 using Core.Queries;
 using Core.Validation;
+using DAL.Queries.GetEmpAnnualSalaryForYear;
 using DAL.Queries.GetYearParams;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -12,16 +13,19 @@ namespace Services.Handlers.CalculateSalaryHandlers
 {
 	public class CalculateSalaryHandler : IRequestHandler<CalculateSalaryRequestModel, CalculateSalaryResponseModel>
 	{
-		private readonly IQueryHandler<GetYearParamsQuery, Parameter> _queryHandler;
+		private readonly IQueryHandler<GetYearParamsQuery, Parameter> _yearParamsQueryHandler;
+		private readonly IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter> _empAnnualSalaryForYearQueryHandler;
 		private readonly IValidation<CalculateSalaryRequestModel> _validator;
 		private readonly ILogger _logger;
 
 		public CalculateSalaryHandler(
-			IQueryHandler<GetYearParamsQuery, Parameter> queryHandler,
+			IQueryHandler<GetYearParamsQuery, Parameter> yearParamsQueryHandler,
+			IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter> empAnnualSalaryForYearQueryHandler,
 			IValidation<CalculateSalaryRequestModel> validator,
 			ILogger<CalculateSalaryHandler> logger)
 		{
-			_queryHandler = queryHandler;
+			_yearParamsQueryHandler = yearParamsQueryHandler;
+			_empAnnualSalaryForYearQueryHandler = empAnnualSalaryForYearQueryHandler;
 			_validator = validator;
 			_logger = logger;
 		}
@@ -30,16 +34,17 @@ namespace Services.Handlers.CalculateSalaryHandlers
 		{
 			await _validator.Validate(request);
 
-			Parameter yearParameters = await _queryHandler.HandleAsync(new GetYearParamsQuery(request.Year));
+			Parameter yearParameters = await _yearParamsQueryHandler.HandleAsync(new GetYearParamsQuery(request.Year));
 
-			if(request.GrossSalary == null)
+			if(request.GrossSalary == null || request.GrossSalary == 0)
 			{
-				//TODO
+				EmployeeParameter employeeParameter = await _empAnnualSalaryForYearQueryHandler.HandleAsync(new GetEmpAnnualSalaryForYearQuery(request.Year, request.EmployeeId));
+				request.GrossSalary = employeeParameter.AnnualSalary;
 			}
 
 			SalaryAndTaxes salaryAndTaxes = new()
 			{
-				GrossSalary = request.GrossSalary //TODO: or from db
+				GrossSalary = request.GrossSalary 
 			};
 
 			if (request.GrossSalary <= yearParameters.MinThreshold)

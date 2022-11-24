@@ -47,16 +47,6 @@ namespace Services.Validations
 			}
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.Year)));
 
-			_logger.LogInformation(LogEvents.ValidatingItem, string.Format(LogMessageResources.ValidatingItem, nameof(model.GrossSalary)));
-			if (model.GrossSalary <= 0)
-			{
-				string message = $"{nameof(model.GrossSalary)} must be greater than 0";
-				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.GrossSalary)));
-				errorMessages.Add(message);
-			}
-			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.GrossSalary)));
-
-
 			if (errorMessages.Any())
 			{
 				string message = string.Join(Environment.NewLine, errorMessages);

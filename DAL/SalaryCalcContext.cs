@@ -21,7 +21,7 @@ namespace DAL
 
         public DbSet<Parameter> Parameters { get; set; }
 
-        public DbSet<EmployeeParameter> EmployeeParameters { get; set; }
+        public DbSet<EmployeeParameter> EmployeeParameter { get; set; }
 
         public SalaryCalcContext CreateDbContext(string[] args)
         {
