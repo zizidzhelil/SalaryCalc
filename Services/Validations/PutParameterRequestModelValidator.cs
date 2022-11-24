@@ -22,7 +22,7 @@ namespace Services.Validations
 			if (model.MinThreshold <= 0 )
 			{
 				string message = $"{nameof(model.MinThreshold)} can't be negative number";
-				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.MinThreshold)));
+				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.MinThreshold), message));
 				errorMessages.Add(message);
 			}
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.MinThreshold)));
@@ -31,7 +31,7 @@ namespace Services.Validations
 			if (model.MaxThreshold < model.MinThreshold)
 			{
 				string message = $"{nameof(model.MaxThreshold)} must be greater than {nameof(model.MinThreshold)}";
-				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.MaxThreshold)));
+				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.MaxThreshold), message));
 				errorMessages.Add(message);
 			}
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.MaxThreshold)));
@@ -40,7 +40,7 @@ namespace Services.Validations
 			if (model.TotalIncomeTaxPercentage < 0)
 			{
 				string message = $"{nameof(model.TotalIncomeTaxPercentage)} can't be negative number";
-				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.TotalIncomeTaxPercentage)));
+				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.TotalIncomeTaxPercentage), message));
 				errorMessages.Add(message);
 			}
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.TotalIncomeTaxPercentage)));
@@ -49,7 +49,7 @@ namespace Services.Validations
 			if (model.HealthAndSocialInsurancePercentage < 0)
 			{
 				string message = $"{nameof(model.HealthAndSocialInsurancePercentage)} can't be negative number";
-				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.HealthAndSocialInsurancePercentage)));
+				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.HealthAndSocialInsurancePercentage), message));
 				errorMessages.Add(message);
 			}
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.HealthAndSocialInsurancePercentage)));

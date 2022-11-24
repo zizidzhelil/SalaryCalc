@@ -16,7 +16,7 @@ namespace Services.Validations
 			_logger = logger;
 		}
 
-		public async Task Validate(GetYearParamsRequestModel model, CancellationToken cancellationToken = default)
+		public Task Validate(GetYearParamsRequestModel model, CancellationToken cancellationToken = default)
 		{
 			List<string> errorMessages = new List<string>();
 
@@ -25,7 +25,7 @@ namespace Services.Validations
 			if (!yearRegex.IsMatch(model.Year.ToString()))
 			{
 				string message = $"{nameof(model.Year)} is invalid";
-				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.Year)));
+				_logger.LogWarning(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.Year), message));
 				errorMessages.Add(message);
 			}
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.Year)));
@@ -35,6 +35,8 @@ namespace Services.Validations
 				string message = string.Join(Environment.NewLine, errorMessages);
 				throw new NotFoundException(message);
 			}
+
+			return Task.CompletedTask;
 		}
 	}
 }

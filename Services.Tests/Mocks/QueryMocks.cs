@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Services.Models.CalculateSalaryModels.RequestModels;
 using Services.Models.CalculateSalaryModels.ResponseModels;
 using Services.Models.EmployeeModels.RequestModels;
 using Services.Models.EmployeeModels.ResponseModels;
@@ -65,6 +66,8 @@ namespace Services.Tests.Mocks
 			BirthDate = new DateTime(1997, 7, 3)
 		};
 
+		public static readonly CalculateSalaryRequestModel calculateSalaryRequestModel = new CalculateSalaryRequestModel(33, 30659, -3100);
+
 		public static readonly CalculateSalaryResponseModel calculateSalaryResponse = new CalculateSalaryResponseModel(3100, 10, 15);
 
 		public static readonly ParametersResponseModel parameterResponse = new ParametersResponseModel()
@@ -92,6 +95,34 @@ namespace Services.Tests.Mocks
 			MaxThreshold = 3000,
 			HealthAndSocialInsurancePercentage = 15,
 			TotalIncomeTaxPercentage = 10
+		};
+
+		public static readonly GetYearParamsRequestModel getYearParamsRequestModel = new GetYearParamsRequestModel(30659);
+
+		public static readonly PostEmployeeRequestModel postEmployeeRequestModel = new PostEmployeeRequestModel()
+		{
+			FirstName = "Number1",
+			MiddleName = "",
+			LastName = "126A",
+			BirthDate = DateTime.Now
+		};
+
+		public static readonly PostParameterRequestModel postParameterRequestModel = new PostParameterRequestModel()
+		{
+			Year = 26598,
+			MinThreshold = -12,
+			TotalIncomeTaxPercentage = -15,
+			HealthAndSocialInsurancePercentage = -10,
+			MaxThreshold = -15
+		};
+
+		public static readonly PutParameterRequestModel putParameterRequestModel = new PutParameterRequestModel()
+		{
+			Year = 26598,
+			MinThreshold = -12,
+			TotalIncomeTaxPercentage = -15,
+			HealthAndSocialInsurancePercentage = -10,
+			MaxThreshold = -15
 		};
 	}
 }

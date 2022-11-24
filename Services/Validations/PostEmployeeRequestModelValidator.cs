@@ -25,7 +25,7 @@ namespace Services.Validations
 				|| model.BirthDate.Year > DateTime.Today.AddYears(-15).Year)
 			{
 				string message = $"{nameof(model.BirthDate)} is invalid";
-				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.BirthDate)));
+				_logger.LogWarning(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.BirthDate), message));
 				errorMessages.Add(message);
 			}
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.BirthDate)));
@@ -35,7 +35,7 @@ namespace Services.Validations
 			if (!nameRegex.IsMatch(model.FirstName))
 			{
 				string message = $"Invalid {nameof(model.FirstName)} given";
-				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.FirstName)));
+				_logger.LogWarning(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.FirstName), message));
 				errorMessages.Add(message);
 			}
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.FirstName)));
@@ -44,7 +44,7 @@ namespace Services.Validations
 			if (!nameRegex.IsMatch(model.MiddleName))
 			{
 				string message = $"Invalid {nameof(model.MiddleName)} given";
-				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.MiddleName)));
+				_logger.LogWarning(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.MiddleName), message));
 				errorMessages.Add(message);
 			}
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.MiddleName)));
@@ -53,7 +53,7 @@ namespace Services.Validations
 			if (!nameRegex.IsMatch(model.LastName))
 			{
 				string message = $"Invalid {nameof(model.LastName)} given";
-				_logger.LogInformation(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.LastName)));
+				_logger.LogWarning(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.LastName), message));
 				errorMessages.Add(message);
 			}
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.LastName)));
