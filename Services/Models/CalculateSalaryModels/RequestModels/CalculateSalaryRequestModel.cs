@@ -8,11 +8,15 @@ namespace Services.Models.CalculateSalaryModels.RequestModels
 		public CalculateSalaryRequestModel(
 			int employeeId,
 			int year,
-			double grossSalary)
+			double? grossSalary)
 		{
 			EmployeeId = employeeId;
 			Year = year;
-			GrossSalary = grossSalary;
+
+			if(grossSalary != null)
+			{
+				GrossSalary = (double)grossSalary;
+			}
 		}
 
 		public int EmployeeId { get; set; }
