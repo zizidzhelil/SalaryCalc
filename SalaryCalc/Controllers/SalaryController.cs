@@ -20,12 +20,12 @@ namespace SalaryCalc.Controllers
 		}
 
 		[HttpGet]
-		public async Task<CalculateSalaryResponseModel> GetNetSalary([FromQuery] int employeeId, int year, double grossSalary)
+		public async Task<IActionResult> GetNetSalary([FromQuery] int employeeId, int year, double grossSalary)
 		{
 			_logger.LogInformation(LogEvents.ControllerFound, string.Format(LogMessageResources.ControllerFound, nameof(SalaryController), nameof(GetNetSalary)));
 
 			CalculateSalaryResponseModel salaryResponse = await _mediator.Send(new CalculateSalaryRequestModel(employeeId, year, grossSalary));
-			return salaryResponse;
+			return Ok(salaryResponse);
 		}
 	}
 }

@@ -1,6 +1,8 @@
 using MediatR;
 using Services.DIConfiguration;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("Services.Tests")]
 namespace SalaryCalc
 {
 	public class Program

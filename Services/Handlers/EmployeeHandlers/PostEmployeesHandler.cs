@@ -5,6 +5,7 @@ using DAL.Commands.InsertEmployee;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Services.Models.EmployeeModels.RequestModels;
+using System.Runtime.CompilerServices;
 
 namespace Services.Handlers.EmployeeHandlers
 {

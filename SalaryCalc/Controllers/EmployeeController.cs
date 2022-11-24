@@ -20,12 +20,12 @@ namespace SalaryCalc.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IList<EmployeesResponseModel>> Get()
+		public async Task<IActionResult> Get()
 		{
 			_logger.LogInformation(LogEvents.ControllerFound, string.Format(LogMessageResources.ControllerFound, nameof(EmployeeController), nameof(Get)));
 
 			IList<EmployeesResponseModel> employeessResponse = await _mediator.Send(new GetEmployeesRequestModel());
-			return employeessResponse;
+			return Ok(employeessResponse);
 		}
 
 		[HttpPost]

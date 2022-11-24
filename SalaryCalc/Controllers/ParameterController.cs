@@ -19,21 +19,21 @@ namespace SalaryCalc.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IList<ParametersResponseModel>> Get()
+		public async Task<IActionResult> Get()
 		{
 			_logger.LogInformation(LogEvents.ControllerFound, string.Format(LogMessageResources.ControllerFound, nameof(ParameterController), nameof(Get)));
 
 			IList<ParametersResponseModel> parameters = await _mediator.Send(new GetParametersRequestModel());
-			return parameters;
+			return Ok(parameters);
 		}
 
 		[HttpGet("GetByYear")]
-		public async Task<ParametersResponseModel> GetByYear([FromQuery] int year)
+		public async Task<IActionResult> GetByYear([FromQuery] int year)
 		{
 			_logger.LogInformation(LogEvents.ControllerFound, string.Format(LogMessageResources.ControllerFound, nameof(ParameterController), nameof(GetByYear)));
 
 			ParametersResponseModel parameter = await _mediator.Send(new GetYearParamsRequestModel(year));
-			return parameter;
+			return Ok(parameter);
 		}
 
 		[HttpPost]
