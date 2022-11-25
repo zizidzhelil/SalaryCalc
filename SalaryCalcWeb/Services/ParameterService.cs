@@ -74,7 +74,7 @@ namespace SalaryCalcWeb.Services
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Put, "Parameter");
 
             var httpClient = _httpClientFactory.CreateClient("Local");
-            var httpResponseMessage = await httpClient.PostAsJsonAsync("Parameter", yearParameters);
+            var httpResponseMessage = await httpClient.PutAsJsonAsync("Parameter", yearParameters);
 
             if (httpResponseMessage.IsSuccessStatusCode)
             {

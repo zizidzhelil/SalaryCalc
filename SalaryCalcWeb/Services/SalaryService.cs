@@ -15,8 +15,8 @@ namespace SalaryCalcWeb.Services
 		public async Task<SalaryModel> GetNetSalary(SalaryRequestModel salaryRequestModel)
 		{
 			SalaryModel response = new SalaryModel();
-
-			var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, $"Salary/employeeId={salaryRequestModel.EmployeeId}&year={salaryRequestModel.Year}&grossSalary={salaryRequestModel.GrossSalary}");
+			var url = $"Salary?employeeId={salaryRequestModel.EmployeeId}&year={salaryRequestModel.Year}&grossSalary={salaryRequestModel.GrossSalary}";
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, url);
 
             var httpClient = _httpClientFactory.CreateClient("Local");
 			var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
