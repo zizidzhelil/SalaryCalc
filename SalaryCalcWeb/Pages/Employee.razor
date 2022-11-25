@@ -15,30 +15,17 @@
     <InputText id="lastName" @bind-Value="employeeModel.LastName" />
     <InputDate id="birthDate" @bind-Value="employeeModel.BirthDate" />
 
-    <button class="btn btn-primary" @onclick="EditEmployee">Save</button>
+    <button class="btn btn-primary" @onclick="AddEmployee">Add</button>
 </EditForm>
 
 @code {
 
     [Inject] public EmployeeService EmployeeService { get; set; }
 
-    private EmployeeModel[]? employees;
+    private EmployeeModel employeeModel = new();
 
-    private EmployeeModel employeeModel = new()
+    private async void AddEmployee()
     {
-            FirstName = "Bella",
-            MiddleName = "Stancheva",
-            LastName = "Ivanova",
-            BirthDate = new DateTime(1997, 7, 3)
-    };
-
-    protected override async Task OnInitializedAsync()
-    {
-        var r = await EmployeeService.GetEmployees();
-    }
-
-    private void EditEmployee()
-    {
-
+        await EmployeeService.InsertEmployee(employeeModel);
     }
 }

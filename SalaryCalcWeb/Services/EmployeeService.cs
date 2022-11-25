@@ -30,5 +30,20 @@ namespace SalaryCalcWeb.Services
 
 			return response;
 		}
+
+		public async Task<bool> InsertEmployee(EmployeeModel employee)
+		{
+			var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7139/Employee");
+
+			var httpClient = _httpClientFactory.CreateClient("Local");
+			var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
+
+			if (httpResponseMessage.IsSuccessStatusCode)
+			{
+				return httpResponseMessage.IsSuccessStatusCode;
+			}
+
+			return false;
+		}
 	}
 }

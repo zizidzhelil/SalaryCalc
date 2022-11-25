@@ -1,4 +1,6 @@
 ﻿@page "/"
+@using SalaryCalcWeb.Models
+@using SalaryCalcWeb.Services
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +9,20 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+@code {
+    [Inject] private EmployeeService EmployeeService { get; set; }
+    [Inject] private ParameterService ParameterService { get; set; }
+    [Inject] private SalaryService SalaryService { get; set; }
+
+    private List<EmployeeModel> employees = new List<EmployeeModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await EmployeeService.GetEmployees();
+        if(result.Count > 0)
+        {
+            employees.AddRange(result);
+        }
+    }
+}
