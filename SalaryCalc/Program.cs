@@ -11,6 +11,17 @@ namespace SalaryCalc
 		{
 			var builder = WebApplication.CreateBuilder(args);
 
+			builder.Services.AddCors(options =>
+			{
+				options.AddDefaultPolicy(
+					policy =>
+					{
+						policy.WithOrigins("https://localhost:7115")
+						.AllowAnyHeader()
+						.AllowAnyMethod();
+					});
+			});
+
 			builder.Logging.ClearProviders();
 			builder.Logging.AddConsole();
 
@@ -18,6 +29,7 @@ namespace SalaryCalc
 			builder.Services.AddEndpointsApiExplorer();
 			builder.Services.AddSwaggerGen();
 			builder.Services.RegisterTypes(builder.Configuration);
+
 
 			builder.Services.AddMediatR(typeof(DependencyResolver).Assembly);
 
@@ -30,6 +42,8 @@ namespace SalaryCalc
 			}
 
 			app.UseHttpsRedirection();
+
+			app.UseCors();
 
 			app.UseAuthorization();
 

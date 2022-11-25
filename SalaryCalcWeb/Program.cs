@@ -13,6 +13,7 @@ builder.Services.AddHttpClient("Local", httpClient =>
 	httpClient.BaseAddress = new Uri("https://localhost:7139/");
 	httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SalaryCalcWeb");
 	httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
+	httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Access-Control-Allow-Origin", "*");
 });
 
 await builder.Build().RunAsync();

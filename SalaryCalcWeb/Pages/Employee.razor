@@ -25,16 +25,16 @@
     private EmployeeModel[]? employees;
 
     private EmployeeModel employeeModel = new()
-        {
+    {
             FirstName = "Bella",
             MiddleName = "Stancheva",
             LastName = "Ivanova",
             BirthDate = new DateTime(1997, 7, 3)
-        };
+    };
 
     protected override async Task OnInitializedAsync()
     {
-        var r = EmployeeService.GetEmployees();
+        var r = await EmployeeService.GetEmployees();
     }
 
     private void EditEmployee()
