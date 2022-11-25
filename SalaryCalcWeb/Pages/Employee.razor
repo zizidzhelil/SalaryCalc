@@ -1,0 +1,43 @@
+﻿@page "/employee"
+@using System.ComponentModel.DataAnnotations
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@using System.Net
+@using SalaryCalcWeb.Models
+@using SalaryCalcWeb.Services
+
+<EditForm Model="employeeModel">
+    <DataAnnotationsValidator />
+    <PageTitle>Employees</PageTitle>
+
+    <InputText id="firstName" @bind-Value="employeeModel.FirstName"/>
+    <InputText id="middleName" @bind-Value="employeeModel.MiddleName"/>
+    <InputText id="lastName" @bind-Value="employeeModel.LastName"/>
+    <InputDate id="birthDate" @bind-Value="employeeModel.BirthDate"/>
+
+    <button class="btn btn-primary" @onclick="EditEmployee">Save</button>
+</EditForm>
+
+@code {
+    private EmployeeService employeeService = new EmployeeService();
+
+    private EmployeeModel[]? employees;
+
+    private EmployeeModel employeeModel = new()
+    {
+        FirstName = "Bella", 
+        MiddleName = "Stancheva", 
+        LastName = "Ivanova", 
+        BirthDate = new DateTime(1997, 7, 3)
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+       var r = employeeService.GetEmployyes();
+    }
+
+    private void EditEmployee()
+    {
+      
+    }
+}
