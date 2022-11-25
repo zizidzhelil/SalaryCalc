@@ -10,34 +10,35 @@
     <DataAnnotationsValidator />
     <PageTitle>Employees</PageTitle>
 
-    <InputText id="firstName" @bind-Value="employeeModel.FirstName"/>
-    <InputText id="middleName" @bind-Value="employeeModel.MiddleName"/>
-    <InputText id="lastName" @bind-Value="employeeModel.LastName"/>
-    <InputDate id="birthDate" @bind-Value="employeeModel.BirthDate"/>
+    <InputText id="firstName" @bind-Value="employeeModel.FirstName" />
+    <InputText id="middleName" @bind-Value="employeeModel.MiddleName" />
+    <InputText id="lastName" @bind-Value="employeeModel.LastName" />
+    <InputDate id="birthDate" @bind-Value="employeeModel.BirthDate" />
 
     <button class="btn btn-primary" @onclick="EditEmployee">Save</button>
 </EditForm>
 
 @code {
-    private EmployeeService employeeService = new EmployeeService();
+
+    [Inject] public EmployeeService EmployeeService { get; set; }
 
     private EmployeeModel[]? employees;
 
     private EmployeeModel employeeModel = new()
-    {
-        FirstName = "Bella", 
-        MiddleName = "Stancheva", 
-        LastName = "Ivanova", 
-        BirthDate = new DateTime(1997, 7, 3)
-    };
+        {
+            FirstName = "Bella",
+            MiddleName = "Stancheva",
+            LastName = "Ivanova",
+            BirthDate = new DateTime(1997, 7, 3)
+        };
 
     protected override async Task OnInitializedAsync()
     {
-       var r = employeeService.GetEmployyes();
+        var r = EmployeeService.GetEmployees();
     }
 
     private void EditEmployee()
     {
-      
+
     }
 }
