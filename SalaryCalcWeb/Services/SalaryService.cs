@@ -16,9 +16,7 @@ namespace SalaryCalcWeb.Services
 		{
 			SalaryModel response = new SalaryModel();
 
-			var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "Salary");
-            // TODO url query
-            //?employeeId=1&year=2022&grossSalary=3100
+			var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, $"Salary/employeeId={salaryRequestModel.EmployeeId}&year={salaryRequestModel.Year}&grossSalary={salaryRequestModel.GrossSalary}");
 
             var httpClient = _httpClientFactory.CreateClient("Local");
 			var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);

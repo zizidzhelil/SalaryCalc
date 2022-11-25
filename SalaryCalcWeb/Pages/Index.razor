@@ -7,26 +7,26 @@
     <DataAnnotationsValidator />
     <PageTitle>Salary Calculator</PageTitle>
 
-    <InputSelect id="EmployeeId" Label="Employee" LabelPosition="LabelPosition." @bind-Value="salaryRequestModel.EmployeeId">
+    <select id="EmployeeId" value="salaryRequestModel.EmployeeId" @onchange="GetEmployeeParameters">
         @foreach (var employee in employees)
         {
             <option value=@employee.Id>@employee.FirstName @employee.LastName</option>
         }
-    </InputSelect>
-@*
-    <InputSelect id="EmployeeId" Label="Year" @bind-Value="salaryRequestModel.EmployeeId">
+    </select>
+
+    <select id="Year" value="salaryRequestModel.Year" @onchange="GetYearParameters">
         @foreach (var year in years)
         {
-            <option value=@employee.Id>@employee.FirstName @employee.LastName</option>
+            <option value=@year>@year</option>
         }
-    </InputSelect>*@
+    </select>
 
-    <InputNumber id="GrossSalary" Label="Gross Salary" @bind-Value="salaryRequestModel.GrossSalary" />
+    <InputNumber id="GrossSalary" @bind-Value="salaryRequestModel.GrossSalary" />
 
     <button class="btn btn-primary" @onclick="Calculate">Calculate</button>
 </EditForm>
 
-@if (salaryRequestModel.Year > 1000)
+@if (showParams)
 {
     <EditForm Model="parameter" OnValidSubmit="@UpdateYarParameters">
         <InputNumber id="year" @bind-Value="parameter.Year" />
@@ -45,17 +45,24 @@
     [Inject] private SalaryService SalaryService { get; set; }
 
     private List<EmployeeModel> employees = new List<EmployeeModel>();
+    private List<EmployeeParameterResponseModel> employeeParameters = new List<EmployeeParameterResponseModel>();
+    private List<int> years = new List<int>();
+
     private SalaryRequestModel salaryRequestModel = new SalaryRequestModel();
     private SalaryModel salary = new SalaryModel();
     private ParameterModel parameter = new ParameterModel();
 
+    bool showParams = false;
+
     protected override async Task OnInitializedAsync()
     {
         var result = await EmployeeService.GetEmployees();
-        if(result.Count > 0)
+        if (result.Count > 0)
         {
             employees.AddRange(result);
         }
+
+        GetEmployeeParameters(new ChangeEventArgs());
     }
 
     private async void Calculate()
@@ -63,8 +70,66 @@
         salary = await SalaryService.GetNetSalary(salaryRequestModel);
     }
 
+    private async void GetEmployeeParameters(ChangeEventArgs e)
+    {
+        var index = 0;
+        if (int.TryParse((string)e.Value, out index) && index >= 0)
+        {
+            salaryRequestModel.EmployeeId = index;
+        }
+        else
+        {
+            index = 1;
+        }
+
+        var result = await ParameterService.GetEmployeeParameter(index);
+        if (result.Count > 0)
+        {
+            if (employeeParameters.Count > 0) employeeParameters = new List<EmployeeParameterResponseModel>();
+            employeeParameters.AddRange(result);
+            SetSalary(employeeParameters.First().AnnualSalary);
+            foreach (var year in employeeParameters)
+            {
+                if (years.Count > 0) years = new List<int>();
+                years.Add(year.Year);
+            }
+
+            await GetYearParams(years.First());
+            StateHasChanged();
+        }
+    }
+
+    private async void GetYearParameters(ChangeEventArgs e)
+    {
+        int year = 0;
+        if (int.TryParse((string)e.Value, out year) && year >= 0)
+        {
+            await GetYearParams(year);
+        }
+    }
+
     private async void UpdateYarParameters()
     {
-        
+        await ParameterService.UpdateYearParameters(parameter);
+    }
+
+    private void SetSalary(double grossSalary)
+    {
+        salaryRequestModel.GrossSalary = grossSalary;
+        StateHasChanged();
+    }
+
+    private async Task GetYearParams(int year)
+    {
+        SetSalary(employeeParameters.Find(x => x.Year == year).AnnualSalary);
+
+        salaryRequestModel.Year = year;
+        parameter = await ParameterService.GetParameterByYear(salaryRequestModel.Year);
+        if (parameter != null)
+        {
+            showParams = true;
+        }
+
+        StateHasChanged();
     }
 }

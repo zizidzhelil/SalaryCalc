@@ -1,4 +1,5 @@
 ﻿using SalaryCalcWeb.Models;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace SalaryCalcWeb.Services
@@ -32,10 +33,10 @@ namespace SalaryCalcWeb.Services
 
         public async Task<bool> InsertEmployee(EmployeeModel employee)
         {
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "https://localhost:7139/Employee");
+            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "Employee");
 
             var httpClient = _httpClientFactory.CreateClient("Local");
-            var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
+            var httpResponseMessage = await httpClient.PostAsJsonAsync("Employee", employee);
 
             if (httpResponseMessage.IsSuccessStatusCode)
             {

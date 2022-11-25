@@ -29,5 +29,5 @@ namespace Services.Models.EmployeeModels.ResponseModels
 		public string LastName { get; set; }
 
 		public DateTime BirthDate { get; set; }
-    }
+	}
 }
