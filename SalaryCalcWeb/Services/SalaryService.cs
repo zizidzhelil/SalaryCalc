@@ -12,20 +12,22 @@ namespace SalaryCalcWeb.Services
 			_httpClientFactory = httpClientFactory;
 		}
 
-		public async Task<SalaryModel> GetNetSalary()
+		public async Task<SalaryModel> GetNetSalary(SalaryRequestModel salaryRequestModel)
 		{
 			SalaryModel response = new SalaryModel();
 
 			var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "Salary");
+            // TODO url query
+            //?employeeId=1&year=2022&grossSalary=3100
 
-			var httpClient = _httpClientFactory.CreateClient("Local");
+            var httpClient = _httpClientFactory.CreateClient("Local");
 			var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
 
 			if (httpResponseMessage.IsSuccessStatusCode)
 			{
-				using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
-				response = JsonSerializer.Deserialize<SalaryModel>(contentStream);
-			}
+                var content = await httpResponseMessage.Content.ReadAsStringAsync();
+                response = JsonSerializer.Deserialize<SalaryModel>(content);            
+            }
 
 			return response;
 		}

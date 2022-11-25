@@ -8,6 +8,9 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<ParameterService>();
+builder.Services.AddScoped<SalaryService>();
+
 builder.Services.AddHttpClient("Local", httpClient =>
 {
 	httpClient.BaseAddress = new Uri("https://localhost:7139/");

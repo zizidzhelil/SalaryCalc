@@ -1,11 +1,16 @@
-﻿namespace SalaryCalcWeb.Models
+﻿using System.Text.Json.Serialization;
+
+namespace SalaryCalcWeb.Models
 {
 	public class SalaryModel
 	{
-		public double NetSalary { get; set; }
+        [JsonPropertyName("netSalary")]
+        public double NetSalary { get; set; }
 
-		public double TaxTotalIncome { get; set; }
+        [JsonPropertyName("taxTotalIncome")]
+        public double TaxTotalIncome { get; set; }
 
-		public double TaxHealthAndSocialInsurance { get; set; }
+        [JsonPropertyName("taxHealthAndSocialInsurance")]
+        public double TaxHealthAndSocialInsurance { get; set; }
 	}
 }

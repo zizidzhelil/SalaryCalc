@@ -2,13 +2,42 @@
 @using SalaryCalcWeb.Models
 @using SalaryCalcWeb.Services
 
-<PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<EditForm Model="salaryRequestModel">
+    <DataAnnotationsValidator />
+    <PageTitle>Salary Calculator</PageTitle>
 
-Welcome to your new app.
+    <InputSelect id="EmployeeId" Label="Employee" LabelPosition="LabelPosition." @bind-Value="salaryRequestModel.EmployeeId">
+        @foreach (var employee in employees)
+        {
+            <option value=@employee.Id>@employee.FirstName @employee.LastName</option>
+        }
+    </InputSelect>
+@*
+    <InputSelect id="EmployeeId" Label="Year" @bind-Value="salaryRequestModel.EmployeeId">
+        @foreach (var year in years)
+        {
+            <option value=@employee.Id>@employee.FirstName @employee.LastName</option>
+        }
+    </InputSelect>*@
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <InputNumber id="GrossSalary" Label="Gross Salary" @bind-Value="salaryRequestModel.GrossSalary" />
+
+    <button class="btn btn-primary" @onclick="Calculate">Calculate</button>
+</EditForm>
+
+@if (salaryRequestModel.Year > 1000)
+{
+    <EditForm Model="parameter" OnValidSubmit="@UpdateYarParameters">
+        <InputNumber id="year" @bind-Value="parameter.Year" />
+        <InputNumber id="minThreshold" @bind-Value="parameter.MinThreshold" />
+        <InputNumber id="totalIncomeTaxPercentage" @bind-Value="parameter.TotalIncomeTaxPercentage" />
+        <InputNumber id="healthAndSocialInsurancePercentage" @bind-Value="parameter.HealthAndSocialInsurancePercentage" />
+        <InputNumber id="MaxThreshold" @bind-Value="parameter.MaxThreshold" />
+
+        <button class="btn btn-primary" @onclick="UpdateYarParameters">Update Yar Parameters</button>
+    </EditForm>
+}
 
 @code {
     [Inject] private EmployeeService EmployeeService { get; set; }
@@ -16,6 +45,9 @@ Welcome to your new app.
     [Inject] private SalaryService SalaryService { get; set; }
 
     private List<EmployeeModel> employees = new List<EmployeeModel>();
+    private SalaryRequestModel salaryRequestModel = new SalaryRequestModel();
+    private SalaryModel salary = new SalaryModel();
+    private ParameterModel parameter = new ParameterModel();
 
     protected override async Task OnInitializedAsync()
     {
@@ -24,5 +56,15 @@ Welcome to your new app.
         {
             employees.AddRange(result);
         }
+    }
+
+    private async void Calculate()
+    {
+        salary = await SalaryService.GetNetSalary(salaryRequestModel);
+    }
+
+    private async void UpdateYarParameters()
+    {
+        
     }
 }
