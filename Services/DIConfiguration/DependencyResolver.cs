@@ -9,6 +9,7 @@ using DAL.Commands.UpdateParameter;
 using DAL.Queries.GetAllEmployees;
 using DAL.Queries.GetAllParameters;
 using DAL.Queries.GetEmpAnnualSalaryForYear;
+using DAL.Queries.GetEmployeeParameter;
 using DAL.Queries.GetYearParams;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -34,9 +35,10 @@ namespace Services.DIConfiguration
 			serviceCollection.AddScoped<IQueryHandler<GetAllParametersQuery, IList<Parameter>>, GetAllParametersQueryHandler>();
 			serviceCollection.AddScoped<IQueryHandler<GetYearParamsQuery, Parameter>, GetYearParamsQueryHandler>();
 			serviceCollection.AddScoped<IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter>, GetEmpAnnualSalaryForYearQueryHandler>();
+            serviceCollection.AddScoped<IQueryHandler<GetEmployeeParameterQuery, IList<EmployeeParameter>>, GetEmployeeParameterQueryHandler>();
 
-			// Commands
-			serviceCollection.AddScoped<ICommandHandler<InsertEmployeeCommand>, InsertEmployeeCommandHandler>();
+            // Commands
+            serviceCollection.AddScoped<ICommandHandler<InsertEmployeeCommand>, InsertEmployeeCommandHandler>();
 			serviceCollection.AddScoped<ICommandHandler<InsertParameterCommand>, InsertParameterCommandHandler>();
 			serviceCollection.AddScoped<ICommandHandler<UpdateParameterCommand>, UpdateParameterCommandHandler>();
 

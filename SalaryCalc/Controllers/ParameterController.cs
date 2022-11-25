@@ -36,7 +36,16 @@ namespace SalaryCalc.Controllers
 			return Ok(parameter);
 		}
 
-		[HttpPost]
+		[HttpGet("GetByEmployeeId")]
+        public async Task<IActionResult> GetByEmployeeId([FromQuery] int employeeId)
+        {
+            _logger.LogInformation(LogEvents.ControllerFound, string.Format(LogMessageResources.ControllerFound, nameof(ParameterController), nameof(GetByEmployeeId)));
+
+            IList<GetEmployeeParameterResponseModel> getEmployeeParameters = await _mediator.Send(new GetEmployeeParameterRequestModel(employeeId));
+            return Ok(getEmployeeParameters);
+        }
+
+        [HttpPost]
 		public async Task<IActionResult> Post([FromBody] PostParameterRequestModel model)
 		{
 			_logger.LogInformation(LogEvents.ControllerFound, string.Format(LogMessageResources.ControllerFound, nameof(ParameterController), nameof(Post)));

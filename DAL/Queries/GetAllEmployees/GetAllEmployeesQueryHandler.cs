@@ -21,7 +21,7 @@ namespace DAL.Queries.GetAllEmployees
 		{
 			_logger.LogInformation(LogEvents.ListingItems, string.Format(LogMessageResources.ListingItems, nameof(Employee)));
 			List<Employee> employees = await _context.Employees
-			   .ToListAsync(cancellationToken);
+               .ToListAsync(cancellationToken);
 			_logger.LogInformation(LogEvents.ListedItems, string.Format(LogMessageResources.ListedItems, employees.Count, nameof(employees)));
 
 			return employees;
