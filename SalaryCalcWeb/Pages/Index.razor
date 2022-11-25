@@ -3,46 +3,79 @@
 @using SalaryCalcWeb.Services
 
 
-<EditForm Model="salaryRequestModel">
+<EditForm Model="salaryRequestModel" style="margin-block: 2em">
     <DataAnnotationsValidator />
     <PageTitle>Salary Calculator</PageTitle>
-
-    <select id="EmployeeId" value="salaryRequestModel.EmployeeId" @onchange="GetEmployeeParameters">
-        @foreach (var employee in employees)
-        {
-            <option value=@employee.Id>@employee.FirstName @employee.LastName</option>
-        }
-    </select>
-
-    <select id="Year" value="salaryRequestModel.Year" @onchange="GetYearParameters">
-        @foreach (var year in years)
-        {
-            <option value=@year>@year</option>
-        }
-    </select>
-
-    <InputNumber id="GrossSalary" @bind-Value="salaryRequestModel.GrossSalary" />
+    <h3>Salary Calculator</h3>
+    <div style="margin-block: 0.2em">
+        <strong>Employee:</strong>
+        <select id="EmployeeId" value="salaryRequestModel.EmployeeId" @onchange="GetEmployeeParameters">
+            @foreach (var employee in employees)
+            {
+                <option value=@employee.Id>@employee.FirstName @employee.LastName</option>
+            }
+        </select>
+    </div>
+    <div style="margin-block: 0.2em">
+        <strong>Year:</strong>
+        <select id="Year" value="salaryRequestModel.Year" @onchange="GetYearParameters">
+            @foreach (var year in years)
+            {
+                <option value=@year>@year</option>
+            }
+        </select>
+    </div>
+    <div style="margin-block: 0.2em">
+        <strong>Gross Salary:</strong>
+        <InputNumber id="GrossSalary" @bind-Value="salaryRequestModel.GrossSalary" />
+    </div>
 
     <button class="btn btn-primary" @onclick="Calculate">Calculate</button>
 </EditForm>
 
-@if(showResult)
+@if (showResult)
 {
-    <EditForm Model="salary">
-        <InputNumber id="NetSalary" @bind-Value="salary.NetSalary" />
-        <InputNumber id="TaxTotalIncome" @bind-Value="salary.TaxTotalIncome" />
-        <InputNumber id="TaxHealthAndSocialInsurance" @bind-Value="salary.TaxHealthAndSocialInsurance" />
+    <EditForm Model="salary" style="margin-block: 2em">
+        <h3>Calculations result</h3>
+        <div style="margin-block: 0.2em">
+            <strong>Net Salary:</strong>
+            <InputNumber id="NetSalary" @bind-Value="salary.NetSalary" />
+        </div>
+        <div style="margin-block: 0.2em">
+            <strong>Tax Total Income:</strong>
+            <InputNumber id="TaxTotalIncome" @bind-Value="salary.TaxTotalIncome" />
+        </div>
+        <div style="margin-block: 0.2em">
+            <strong>Tax Health and Social Insurance:</strong>
+            <InputNumber id="TaxHealthAndSocialInsurance" @bind-Value="salary.TaxHealthAndSocialInsurance" />
+        </div>
     </EditForm>
 }
 
 @if (showParams)
 {
-    <EditForm Model="parameter" OnValidSubmit="@UpdateYarParameters">
-        <InputNumber id="year" @bind-Value="parameter.Year" />
-        <InputNumber id="minThreshold" @bind-Value="parameter.MinThreshold" />
-        <InputNumber id="totalIncomeTaxPercentage" @bind-Value="parameter.TotalIncomeTaxPercentage" />
-        <InputNumber id="healthAndSocialInsurancePercentage" @bind-Value="parameter.HealthAndSocialInsurancePercentage" />
-        <InputNumber id="MaxThreshold" @bind-Value="parameter.MaxThreshold" />
+    <EditForm Model="parameter" OnValidSubmit="@UpdateYarParameters" style="margin-block: 2em">
+        <h3>Year parameters</h3>
+        <div style="margin-block: 0.2em">
+            <strong>Year:</strong>
+            <InputNumber id="Year" @bind-Value="parameter.Year" />
+        </div>
+        <div style="margin-block: 0.2em">
+            <strong>Min Threshold:</strong>
+            <InputNumber id="MinThreshold" @bind-Value="parameter.MinThreshold" />
+        </div>
+        <div style="margin-block: 0.2em">
+            <strong>Total Income Tax Percentage:</strong>
+            <InputNumber id="TotalIncomeTaxPercentage" @bind-Value="parameter.TotalIncomeTaxPercentage" />
+        </div>
+        <div style="margin-block: 0.2em">
+            <strong>Health and Social Insurance Percentage:</strong>
+            <InputNumber id="HealthAndSocialInsurancePercentage" @bind-Value="parameter.HealthAndSocialInsurancePercentage" />
+        </div>
+        <div style="margin-block: 0.2em">
+            <strong>Max Threshold:</strong>
+            <InputNumber id="MaxThreshold" @bind-Value="parameter.MaxThreshold" />
+        </div>
 
         <button class="btn btn-primary" @onclick="UpdateYarParameters">Update Yar Parameters</button>
     </EditForm>
@@ -82,7 +115,7 @@
             salary = await SalaryService.GetNetSalary(salaryRequestModel);
             showResult = true;
             StateHasChanged();
-        }     
+        }
     }
 
     private async void GetEmployeeParameters(ChangeEventArgs e)
