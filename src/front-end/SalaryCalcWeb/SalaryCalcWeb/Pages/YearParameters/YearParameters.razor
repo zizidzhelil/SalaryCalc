@@ -1,0 +1,33 @@
+﻿@inherits FluxorComponent
+
+@page "/year-parameters"
+
+<PageTitle>YearParameters</PageTitle>
+
+<h3>Add Year Parameters</h3>
+
+<div style="margin-block: 0.2em">
+    <strong>Year:</strong>
+    <input @bind-value="State.Value.Parameter.Year" />
+</div>
+
+<div style="margin-block: 0.2em">
+    <strong>Min Threshold:</strong>
+    <input @bind-value="State.Value.Parameter.MinThreshold" />
+</div>
+
+<div style="margin-block: 0.2em">
+    <strong>Total Income Tax Percentage:</strong>
+    <input @bind-value="State.Value.Parameter.TotalIncomeTaxPercentage" />
+</div>
+<div style="margin-block: 0.2em">
+    <strong>Health and Social Insurance Percentage:</strong>
+    <input @bind-value="State.Value.Parameter.HealthAndSocialInsurancePercentage" />
+</div>
+
+<div style="margin-block: 0.2em">
+    <strong>Max Threshold:</strong>
+    <input @bind-value="State.Value.Parameter.MaxThreshold" />
+</div>
+
+<button class="btn btn-primary" @onclick="Add">Add</button>

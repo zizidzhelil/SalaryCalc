@@ -6,6 +6,7 @@ using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Services.Commands.AddEmployee;
+using Services.Commands.AddYearParameters;
 using Services.Commands.UpdateParameters;
 using Services.Queries.GetAllEmployees;
 using Services.Queries.GetEmployeeParams;
@@ -37,23 +38,22 @@ namespace SalaryCalcWeb
             builder.Services.AddScoped<IQueryHandler<GetParametersQuery, ParameterModel>, GetParametersQueryHandler>();
             builder.Services.AddScoped<ICommandHandler<UpdateParametersCommand>, UpdateParametersCommandHandler>();
             builder.Services.AddScoped<ICommandHandler<AddEmployeeCommand>, AddEmployeeCommandHandler>();
+            builder.Services.AddScoped<ICommandHandler<AddYearParametersCommand>, AddYearParametersCommandHandler>();
+
+            var url = builder.Configuration.GetSection("SalaryCalcServer")["SalaryCalcServerHost"];
+            builder.Services.AddHttpClient("SalaryCalc", httpClient =>
             {
+                httpClient.BaseAddress = new Uri(url);
+                httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SalaryCalcWeb");
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Access-Control-Allow-Origin", "*");
+            });
 
-                var url = builder.Configuration.GetSection("SalaryCalcServer")["SalaryCalcServerHost"];
-                builder.Services.AddHttpClient("SalaryCalc", httpClient =>
-                {
-                    httpClient.BaseAddress = new Uri(url);
-                    httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SalaryCalcWeb");
-                    httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
-                    httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Access-Control-Allow-Origin", "*");
-                });
+            builder.Services.AddFluxor(o => o
+                .ScanAssemblies(typeof(Program).Assembly)
+                .UseReduxDevTools());
 
-                builder.Services.AddFluxor(o => o
-                    .ScanAssemblies(typeof(Program).Assembly)
-                    .UseReduxDevTools());
-
-                await builder.Build().RunAsync();
-            }
+            await builder.Build().RunAsync();
         }
     }
 }
