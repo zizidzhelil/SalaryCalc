@@ -1,9 +1,10 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+@inherits FluxorComponent
 
-@State.Value.ErrorMessage.ToString()
+<PageTitle>Salary Calculator</PageTitle>
 
-Welcome to your new app.
-
-<p role="status">Current count: @State.Value.ErrorMessage</p>
+    @foreach (var employee in State.Value.Employees)
+    {
+        <span>@employee.FirstName @employee.LastName</span> <br />
+    }     
