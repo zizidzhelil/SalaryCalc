@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Services.Queries.GetAllEmployees;
 using Services.Queries.GetEmployeeParams;
+using Services.Queries.GetSalary;
 
 namespace SalaryCalcWeb
 {
@@ -28,21 +29,24 @@ namespace SalaryCalcWeb
             builder.Services.AddScoped<IAppSettings>(provider => new AppSettings(builder.Configuration));
             builder.Services.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<EmployeeModel>>, GetAllEmployeesQueryHandler>();
             builder.Services.AddScoped<IQueryHandler<GetEmployeeParamsQuery, IList<EmployeeParameterModel>>, GetEmployeeParamsQueryHandler>();
-
-            var url = builder.Configuration.GetSection("SalaryCalcServer")["SalaryCalcServerHost"];
-            builder.Services.AddHttpClient("SalaryCalc", httpClient =>
+            builder.Services.AddScoped<IQueryHandler<GetSalaryQuery, SalaryModel>, GetSalaryQueryHandler>();
             {
-                httpClient.BaseAddress = new Uri(url);
-                httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SalaryCalcWeb");
-                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
-                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Access-Control-Allow-Origin", "*");
-            });
 
-            builder.Services.AddFluxor(o => o
-                .ScanAssemblies(typeof(Program).Assembly)
-                .UseReduxDevTools());
+                var url = builder.Configuration.GetSection("SalaryCalcServer")["SalaryCalcServerHost"];
+                builder.Services.AddHttpClient("SalaryCalc", httpClient =>
+                {
+                    httpClient.BaseAddress = new Uri(url);
+                    httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SalaryCalcWeb");
+                    httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
+                    httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Access-Control-Allow-Origin", "*");
+                });
 
-            await builder.Build().RunAsync();
+                builder.Services.AddFluxor(o => o
+                    .ScanAssemblies(typeof(Program).Assembly)
+                    .UseReduxDevTools());
+
+                await builder.Build().RunAsync();
+            }
         }
     }
 }

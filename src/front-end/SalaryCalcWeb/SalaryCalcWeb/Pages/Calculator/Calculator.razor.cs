@@ -55,5 +55,10 @@ namespace SalaryCalcWeb.Pages.Calculator
 
             return base.OnInitializedAsync();
         }
+
+        protected void Calculate()
+        {
+            Dispatcher.Dispatch(new LoadNetSalaryAction(SelectedEmployeeId, SelectedParamsId, GrossSalary));
+        }
     }
 }
