@@ -1,0 +1,10 @@
+﻿@inherits FluxorComponent
+
+<select @onchange="@((a) => Dispatcher.Dispatch(new LoadEmployeeParamsAction(int.Parse(a.Value.ToString()))))">
+    
+    @foreach (var employee in State.Value.Employees)
+    {
+        <option value=@employee.Id>@employee.FirstName @employee.LastName</option>
+    }
+
+</select>

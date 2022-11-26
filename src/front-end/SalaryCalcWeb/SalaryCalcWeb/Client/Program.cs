@@ -1,7 +1,11 @@
+using Core;
+using Core.Models;
+using Core.Queries;
 using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using SalaryCalcWeb;
+using Services.Queries.GetAllEmployees;
+using Services.Queries.GetEmployeeParams;
 
 namespace SalaryCalcWeb
 {
@@ -13,7 +17,26 @@ namespace SalaryCalcWeb
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            var http = new HttpClient() { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) };
+            builder.Services.AddScoped(sp => http);
+
+            using var response = await http.GetAsync("appSettings.json");
+            using var stream = await response.Content.ReadAsStreamAsync();
+
+            builder.Configuration.AddJsonStream(stream);
+
+            builder.Services.AddScoped<IAppSettings>(provider => new AppSettings(builder.Configuration));
+            builder.Services.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<EmployeeModel>>, GetAllEmployeesQueryHandler>();
+            builder.Services.AddScoped<IQueryHandler<GetEmployeeParamsQuery, IList<EmployeeParameterModel>>, GetEmployeeParamsQueryHandler>();
+
+            var url = builder.Configuration.GetSection("SalaryCalcServer")["SalaryCalcServerHost"];
+            builder.Services.AddHttpClient("SalaryCalc", httpClient =>
+            {
+                httpClient.BaseAddress = new Uri(url);
+                httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("SalaryCalcWeb");
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", "application/json");
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Access-Control-Allow-Origin", "*");
+            });
 
             builder.Services.AddFluxor(o => o
                 .ScanAssemblies(typeof(Program).Assembly)

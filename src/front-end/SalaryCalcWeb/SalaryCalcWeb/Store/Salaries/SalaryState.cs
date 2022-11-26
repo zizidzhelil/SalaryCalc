@@ -7,8 +7,11 @@ namespace SalaryCalcWeb.Store.Salaries
         public SalaryState()
         {
             Employees = new List<EmployeeModel>();
+            EmployeeParams = new List<EmployeeParameterModel>();
         }
 
         public IList<EmployeeModel> Employees { get; init; }
+
+        public IList<EmployeeParameterModel> EmployeeParams { get; init; }
     }
 }
