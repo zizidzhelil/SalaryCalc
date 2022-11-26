@@ -30,8 +30,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Servic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FBE48329-F2BC-462D-A8BE-2415E99B6207}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalaryCalcWeb", "SalaryCalcWeb\SalaryCalcWeb.csproj", "{690CE0B8-17F8-4764-B1DB-5988E3581C81}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Tests", "Services.Tests\Services.Tests.csproj", "{246E557B-317D-44DE-BB05-091C81BF356E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalaryCalc.Tests", "SalaryCalc.Tests\SalaryCalc.Tests.csproj", "{10CEB9DF-12D7-466B-A237-4B0EE97C04B5}"
@@ -62,10 +60,6 @@ Global
 		{BCDF76F3-7E53-4A01-80E4-4405CABE809A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCDF76F3-7E53-4A01-80E4-4405CABE809A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCDF76F3-7E53-4A01-80E4-4405CABE809A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{690CE0B8-17F8-4764-B1DB-5988E3581C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{690CE0B8-17F8-4764-B1DB-5988E3581C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{690CE0B8-17F8-4764-B1DB-5988E3581C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{690CE0B8-17F8-4764-B1DB-5988E3581C81}.Release|Any CPU.Build.0 = Release|Any CPU
 		{246E557B-317D-44DE-BB05-091C81BF356E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{246E557B-317D-44DE-BB05-091C81BF356E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{246E557B-317D-44DE-BB05-091C81BF356E}.Release|Any CPU.ActiveCfg = Release|Any CPU

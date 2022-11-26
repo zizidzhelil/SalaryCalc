@@ -1,0 +1,24 @@
+﻿@inherits FluxorComponent
+
+<select @bind="@SelectedEmployeeId">
+
+    @foreach (var employee in State.Value.Employees)
+    {
+        <option value=@employee.Id>@employee.FirstName @employee.LastName</option>
+    }
+
+</select>
+
+<select @bind="@SelectedParamsId">
+
+    @foreach (var employeeParam in State.Value.EmployeeParams)
+    {
+        <option value=@employeeParam.Year>@employeeParam.Year</option>
+    }
+
+</select>
+
+<strong>Gross Salary:</strong>
+<input @bind-value="@GrossSalary" />
+
+<button @onclick="Calculate" class="btn btn-primary">Calculate</button>
