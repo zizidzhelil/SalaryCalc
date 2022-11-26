@@ -26,7 +26,10 @@ namespace SalaryCalcWeb.Store.Salaries.Effects
 
             if (employeeParams.Any())
             {
-                dispatcher.Dispatch(new SetGrossSalarayAction(employeeParams.First().AnnualSalary));
+                var employeeParam = employeeParams.First();
+
+                dispatcher.Dispatch(new SetSelectedYearAction(employeeParam.Year));
+                dispatcher.Dispatch(new SetGrossSalarayAction(employeeParam.AnnualSalary));
             }
             else
             {

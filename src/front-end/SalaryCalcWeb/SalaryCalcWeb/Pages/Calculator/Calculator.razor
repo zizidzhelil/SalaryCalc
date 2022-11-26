@@ -13,10 +13,12 @@
 
     @foreach (var employeeParam in State.Value.EmployeeParams)
     {
-        <option value=@employeeParam.Id>@employeeParam.Year</option>
+        <option value=@employeeParam.Year>@employeeParam.Year</option>
     }
 
 </select>
 
 <strong>Gross Salary:</strong>
 <input @bind-value="@GrossSalary" />
+
+<button class="btn btn-primary">Calculate</button>

@@ -2,11 +2,14 @@
 {
     public record SetGrossSalaryByEmployeeAction
     {
-        public SetGrossSalaryByEmployeeAction(int employeeParamId)
+        public SetGrossSalaryByEmployeeAction(int employeeId, int year)
         {
-            EmployeeParamId = employeeParamId;
+            EmployeeId = employeeId;
+            Year = year;
         }
 
-        public int EmployeeParamId { get; }
+        public int EmployeeId { get; }
+
+        public int Year { get; set; }
     }
 }

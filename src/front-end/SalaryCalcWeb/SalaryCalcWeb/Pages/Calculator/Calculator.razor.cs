@@ -11,31 +11,29 @@ namespace SalaryCalcWeb.Pages.Calculator
 
         [Inject] public IState<SalaryState> State { get; set; }
 
-        private int selectedEmployeeId;
         public int SelectedEmployeeId
         {
             get
             {
-                return selectedEmployeeId;
+                return State.Value.SelectedEmployeeId;
             }
             set
             {
-                selectedEmployeeId = value;
+                Dispatcher.Dispatch(new SetSelectedEmployeeAction(value));
                 Dispatcher.Dispatch(new LoadEmployeeParamsAction(value));
             }
         }
 
-        private int selectedParamsId;
         public int SelectedParamsId
         {
             get
             {
-                return selectedParamsId;
+                return State.Value.SelectedYear;
             }
             set
             {
-                selectedParamsId = value;
-                Dispatcher.Dispatch(new SetGrossSalaryByEmployeeAction(value));
+                Dispatcher.Dispatch(new SetSelectedYearAction(value));
+                Dispatcher.Dispatch(new SetGrossSalaryByEmployeeAction(SelectedEmployeeId, value));
             }
         }
 

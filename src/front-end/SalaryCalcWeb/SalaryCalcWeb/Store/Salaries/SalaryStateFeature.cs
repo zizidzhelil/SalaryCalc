@@ -13,7 +13,9 @@ namespace SalaryCalcWeb.Store.Salaries
             {
                 Employees = new List<EmployeeModel>(),
                 EmployeeParams = new List<EmployeeParameterModel>(),
-                GrossSalary = 0
+                GrossSalary = 0,
+                SelectedEmployeeId = 0,
+                SelectedYear = 0
             };
         }
     }

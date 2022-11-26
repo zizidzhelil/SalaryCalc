@@ -16,5 +16,9 @@ namespace SalaryCalcWeb.Store.Salaries
         public IList<EmployeeParameterModel> EmployeeParams { get; init; }
 
         public double GrossSalary { get; init; }
+
+        public int SelectedEmployeeId { get; init; }
+
+        public int SelectedYear { get; init; }
     }
 }
