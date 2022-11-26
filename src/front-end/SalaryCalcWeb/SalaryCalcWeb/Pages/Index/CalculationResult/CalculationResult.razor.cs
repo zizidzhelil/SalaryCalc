@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using SalaryCalcWeb.Store.Salaries;
 
-namespace SalaryCalcWeb.Pages.CalculationResult
+namespace SalaryCalcWeb.Pages.Index.CalculationResult
 {
     public partial class CalculationResult
     {
