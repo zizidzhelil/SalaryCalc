@@ -1,4 +1,5 @@
 using MediatR;
+using SalaryCalc.Filters;
 using Services.DIConfiguration;
 
 namespace SalaryCalc
@@ -24,7 +25,10 @@ namespace SalaryCalc
             builder.Logging.ClearProviders();
             builder.Logging.AddConsole();
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(options =>
+            {
+                options.Filters.Add(new GlobalExceptionHandlingFilter());
+            });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.RegisterTypes(builder.Configuration);
