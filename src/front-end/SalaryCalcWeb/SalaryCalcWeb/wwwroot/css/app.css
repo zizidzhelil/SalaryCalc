@@ -1,1 +1,7 @@
-﻿
+﻿.body {
+    background-color: #eeeeee;
+    font-family: 'Open Sans', Arial, sans-serif;
+    color: #777777;
+    font-size: 14px;
+    line-height: 1.75em;
+}
