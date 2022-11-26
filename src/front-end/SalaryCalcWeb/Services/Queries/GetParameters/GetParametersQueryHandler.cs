@@ -36,7 +36,7 @@ namespace Services.Queries.GetParameters
                 return JsonSerializer.Deserialize<ParameterModel>(content);
             }
 
-            return new ParameterModel();
+            return null;
         }
     }
 }

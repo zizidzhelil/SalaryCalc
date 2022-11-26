@@ -11,7 +11,7 @@ namespace SalaryCalcWeb.Store.Dom
             return new DomState()
             {
                 IsLoading = false,
-                ErrorMessage = "AAAAAAAAAAAAAAA",
+                ErrorMessage = string.Empty,
             };
         }
     }

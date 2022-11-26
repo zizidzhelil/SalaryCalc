@@ -5,6 +5,7 @@ using Core.Queries;
 using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Services.Commands.AddEmployee;
 using Services.Commands.UpdateParameters;
 using Services.Queries.GetAllEmployees;
 using Services.Queries.GetEmployeeParams;
@@ -35,6 +36,7 @@ namespace SalaryCalcWeb
             builder.Services.AddScoped<IQueryHandler<GetSalaryQuery, SalaryModel>, GetSalaryQueryHandler>();
             builder.Services.AddScoped<IQueryHandler<GetParametersQuery, ParameterModel>, GetParametersQueryHandler>();
             builder.Services.AddScoped<ICommandHandler<UpdateParametersCommand>, UpdateParametersCommandHandler>();
+            builder.Services.AddScoped<ICommandHandler<AddEmployeeCommand>, AddEmployeeCommandHandler>();
             {
 
                 var url = builder.Configuration.GetSection("SalaryCalcServer")["SalaryCalcServerHost"];
