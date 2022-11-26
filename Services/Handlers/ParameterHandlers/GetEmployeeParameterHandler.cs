@@ -4,7 +4,6 @@ using Core.Queries;
 using DAL.Queries.GetEmployeeParameter;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Services.Models.EmployeeModels.ResponseModels;
 using Services.Models.ParameterModels.RequestModels;
 using Services.Models.ParameterModels.ResponseModels;
 
@@ -14,12 +13,13 @@ namespace Services.Handlers.ParameterHandlers
     {
         private readonly IQueryHandler<GetEmployeeParameterQuery, IList<EmployeeParameter>> _queryHandler;
         private readonly ILogger _logger;
+
         public GetEmployeeParameterHandler(
-           IQueryHandler<GetEmployeeParameterQuery, IList<EmployeeParameter>> queryHandler,
-            ILogger<GetEmployeeParameterHandler> logger)
+            ILogger<GetEmployeeParameterHandler> logger,
+            IQueryHandler<GetEmployeeParameterQuery, IList<EmployeeParameter>> queryHandler)
         {
-            _queryHandler = queryHandler;
             _logger = logger;
+            _queryHandler = queryHandler;
         }
 
         public async Task<IList<GetEmployeeParameterResponseModel>> Handle(GetEmployeeParameterRequestModel request, CancellationToken cancellationToken)

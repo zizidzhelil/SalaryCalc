@@ -14,11 +14,11 @@ namespace Services.Handlers.ParameterHandlers
 		private readonly IQueryHandler<GetAllParametersQuery, IList<Parameter>> _queryHandler;
 		private readonly ILogger _logger;
 		public GetParametersHandler(
-			IQueryHandler<GetAllParametersQuery, IList<Parameter>> queryHandler,
-			ILogger<GetParametersHandler> logger)
+            ILogger<GetParametersHandler> logger,
+            IQueryHandler<GetAllParametersQuery, IList<Parameter>> queryHandler)
 		{
-			this._queryHandler = queryHandler;
-			_logger = logger;
+            _logger = logger;
+            _queryHandler = queryHandler;
 		}
 
 		public async Task<IList<ParametersResponseModel>> Handle(GetParametersRequestModel request, CancellationToken cancellationToken)

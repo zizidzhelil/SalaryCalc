@@ -13,7 +13,7 @@ namespace Services.Tests.ExtendedHandlers
 			ICommandHandler<UpdateParameterCommand> commandHandler, 
 			IValidation<PutParameterRequestModel> validator, 
 			ILogger<PutParameterHandler> logger) 
-			: base(commandHandler, validator, logger)
+			: base(logger, validator, commandHandler)
 		{
 		}
 

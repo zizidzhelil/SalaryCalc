@@ -20,7 +20,9 @@ namespace DAL.Queries.GetEmployeeParameter
         public async Task<IList<EmployeeParameter>> HandleAsync(GetEmployeeParameterQuery query, CancellationToken cancellationToken = default)
         {
             _logger.LogInformation(LogEvents.GettingItem, string.Format(LogMessageResources.GettingItem, nameof(EmployeeParameter), query.EmployeeId));
-            IList<EmployeeParameter> employeeParameters = await _context.EmployeeParameter.Where(x => x.EmployeeId == query.EmployeeId).ToListAsync();
+            IList<EmployeeParameter> employeeParameters = await _context.EmployeeParameter
+                .Where(x => x.EmployeeId == query.EmployeeId)
+                .ToListAsync(cancellationToken: cancellationToken);
 
             if (employeeParameters == null)
             {

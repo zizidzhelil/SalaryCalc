@@ -26,7 +26,7 @@ namespace Services.Tests.Handlers.CalculateSalaryHandlersTests
 			mockGetYearParamsQuery.Setup(x => x.HandleAsync(It.IsAny<GetYearParamsQuery>(), CancellationToken.None))
 				.ReturnsAsync(QueryMocks.parameter);
 
-			CalculateSalaryHandler handler = new CalculateSalaryHandler(mockGetYearParamsQuery.Object, mockGetEmpAnnualSalaryForYearQuery.Object, mockValidation.Object, mockLogger.Object);
+			CalculateSalaryHandler handler = new CalculateSalaryHandler(mockLogger.Object, mockValidation.Object, mockGetYearParamsQuery.Object, mockGetEmpAnnualSalaryForYearQuery.Object);
 
 			var actual = await handler.Handle(new CalculateSalaryRequestModel(1, 2022, 3100), CancellationToken.None);
 			var expected = new CalculateSalaryResponseModel(2340, 310, 450);
@@ -48,7 +48,7 @@ namespace Services.Tests.Handlers.CalculateSalaryHandlersTests
 			mockGetYearParamsQuery.Setup(x => x.HandleAsync(It.IsAny<GetYearParamsQuery>(), CancellationToken.None))
 				.ReturnsAsync(QueryMocks.parameter);
 
-			CalculateSalaryHandler handler = new CalculateSalaryHandler(mockGetYearParamsQuery.Object, mockGetEmpAnnualSalaryForYearQuery.Object, mockValidation.Object, mockLogger.Object);
+			CalculateSalaryHandler handler = new CalculateSalaryHandler(mockLogger.Object, mockValidation.Object, mockGetYearParamsQuery.Object, mockGetEmpAnnualSalaryForYearQuery.Object);
 
 			var actual = await handler.Handle(new CalculateSalaryRequestModel(1, 2022, null), CancellationToken.None);
 			var expected = new CalculateSalaryResponseModel(71550, 8000, 450);
@@ -70,7 +70,7 @@ namespace Services.Tests.Handlers.CalculateSalaryHandlersTests
 			mockGetYearParamsQuery.Setup(x => x.HandleAsync(It.IsAny<GetYearParamsQuery>(), CancellationToken.None))
 				.ReturnsAsync(QueryMocks.parameter);
 
-			CalculateSalaryHandler handler = new CalculateSalaryHandler(mockGetYearParamsQuery.Object, mockGetEmpAnnualSalaryForYearQuery.Object, mockValidation.Object, mockLogger.Object);
+			CalculateSalaryHandler handler = new CalculateSalaryHandler(mockLogger.Object, mockValidation.Object, mockGetYearParamsQuery.Object, mockGetEmpAnnualSalaryForYearQuery.Object);
 
 			var actual = await handler.Handle(new CalculateSalaryRequestModel(1, 2021, 900), CancellationToken.None);
 			var expected = new CalculateSalaryResponseModel(900, 0, 0);

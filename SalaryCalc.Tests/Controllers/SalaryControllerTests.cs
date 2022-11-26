@@ -21,7 +21,7 @@ namespace SalaryCalc.Tests.Controllers
 			mockMediator.Setup(x => x.Send(It.IsAny<CalculateSalaryRequestModel>(), CancellationToken.None))
 				.ReturnsAsync(QueryMocks.calculateSalaryResponse);
 
-			SalaryController salaryController = new SalaryController(mockMediator.Object, mockLogger.Object);
+			SalaryController salaryController = new SalaryController(mockLogger.Object, mockMediator.Object);
 
 			var result = await salaryController.GetNetSalary(1, 2022, 3100);
 			CalculateSalaryResponseModel expected = QueryMocks.calculateSalaryResponse;

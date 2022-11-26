@@ -22,7 +22,7 @@ namespace Services.Tests.Handlers.EmployeeHandlersTests
 			mockGetEmpAnnualSalaryForYearQuery.Setup(x => x.HandleAsync(It.IsAny<GetEmpAnnualSalaryForYearQuery>(), CancellationToken.None))
 				.ReturnsAsync(QueryMocks.employeeParameter);
 
-			GetEmpAnnualSalaryForYearHandler handler = new GetEmpAnnualSalaryForYearHandler(mockGetEmpAnnualSalaryForYearQuery.Object, mockLogger.Object);
+			GetEmpAnnualSalaryForYearHandler handler = new GetEmpAnnualSalaryForYearHandler(mockLogger.Object, mockGetEmpAnnualSalaryForYearQuery.Object);
 
 			var actual = await handler.Handle(new GetEmpAnnualSalaryForYearRequestModel(1, 2022), CancellationToken.None);
 			var expected = new GetEmpAnnualSalaryForYearResponseModel(QueryMocks.employeeParameter);

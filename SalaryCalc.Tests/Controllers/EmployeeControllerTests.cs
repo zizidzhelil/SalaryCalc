@@ -21,7 +21,7 @@ namespace SalaryCalc.Tests.Controllers
 			mockMediator.Setup(x => x.Send(It.IsAny<GetEmployeesRequestModel>(), CancellationToken.None))
 				.ReturnsAsync(QueryMocks.employeesResponse);
 			 
-			EmployeeController employeeController = new EmployeeController(mockMediator.Object, mockLogger.Object);
+			EmployeeController employeeController = new EmployeeController(mockLogger.Object, mockMediator.Object);
 
 			var result = await employeeController.Get();
 			List<EmployeesResponseModel> expected = QueryMocks.employeesResponse;
@@ -39,7 +39,7 @@ namespace SalaryCalc.Tests.Controllers
 			var mockMediator = new Mock<IMediator>();
 
 			mockMediator.Setup(x => x.Send(It.IsAny<PostEmployeeRequestModel>(), CancellationToken.None));
-			EmployeeController employeeController = new EmployeeController(mockMediator.Object, mockLogger.Object);
+			EmployeeController employeeController = new EmployeeController(mockLogger.Object, mockMediator.Object);
 
 			var result = await employeeController.Post(QueryMocks.employee);
 			var actual = result as NoContentResult;

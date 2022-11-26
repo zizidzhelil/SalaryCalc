@@ -7,19 +7,19 @@ using Services.Models.EmployeeModels.RequestModels;
 
 namespace Services.Tests.ExtendedHandlers
 {
-	public class PostEmployeesHandlerExposedToTest : PostEmployeesHandler
-	{
-		public PostEmployeesHandlerExposedToTest(
-			ICommandHandler<InsertEmployeeCommand> insertEmployeeCommandHandler,
-			IValidation<PostEmployeeRequestModel> validator,
-			ILogger<PostEmployeesHandler> logger)
-			: base(insertEmployeeCommandHandler, validator, logger)
-		{
-		}
+    public class PostEmployeesHandlerExposedToTest : PostEmployeesHandler
+    {
+        public PostEmployeesHandlerExposedToTest(
+            ILogger<PostEmployeesHandler> logger,
+            IValidation<PostEmployeeRequestModel> validator,
+            ICommandHandler<InsertEmployeeCommand> insertEmployeeCommandHandler)
+            : base(logger, validator, insertEmployeeCommandHandler)
+        {
+        }
 
-		public new Task Handle(PostEmployeeRequestModel request, CancellationToken cancellationToken)
-		{
-			return base.Handle(request, cancellationToken);
-		}
-	}
+        public new Task Handle(PostEmployeeRequestModel request, CancellationToken cancellationToken)
+        {
+            return base.Handle(request, cancellationToken);
+        }
+    }
 }

@@ -1,6 +1,5 @@
 ﻿using Core.Entities;
 
-
 namespace DAL.Seed
 {
 	public class EmployeeParameterSeed

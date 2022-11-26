@@ -7,13 +7,13 @@ namespace DAL.Commands.InsertParameter
 {
 	public class InsertParameterCommandHandler : ICommandHandler<InsertParameterCommand>
 	{
-		private readonly SalaryCalcContext _context;
-		private readonly ILogger _logger;
+        private readonly ILogger _logger;
+        private readonly SalaryCalcContext _context;
 
-		public InsertParameterCommandHandler(SalaryCalcContext context, ILogger<InsertParameterCommandHandler> logger)
+		public InsertParameterCommandHandler(ILogger<InsertParameterCommandHandler> logger, SalaryCalcContext context)
 		{
-			_context = context;
-			_logger = logger;
+            _logger = logger;
+            _context = context;
 		}
 
 		public async Task HandleAsync(InsertParameterCommand command, CancellationToken cancellationToken = default)

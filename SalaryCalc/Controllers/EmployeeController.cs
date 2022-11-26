@@ -7,16 +7,16 @@ using Services.Models.EmployeeModels.ResponseModels;
 namespace SalaryCalc.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("employee")]
 	public class EmployeeController : ControllerBase
 	{
-		private readonly IMediator _mediator;
-		private readonly ILogger _logger;
+        private readonly ILogger _logger;
+        private readonly IMediator _mediator;
 
-		public EmployeeController(IMediator mediator, ILogger<EmployeeController> logger)
+		public EmployeeController(ILogger<EmployeeController> logger, IMediator mediator)
 		{
-			_mediator = mediator;
-			_logger = logger;
+            _logger = logger;
+            _mediator = mediator;
 		}
 
 		[HttpGet]

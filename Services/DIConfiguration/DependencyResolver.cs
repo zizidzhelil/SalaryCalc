@@ -28,7 +28,7 @@ namespace Services.DIConfiguration
 		   IConfiguration configuration)
 		{
 			// Add database connection string
-			serviceCollection.AddDbContext<SalaryCalcContext>(x => x.UseSqlServer(@"Server=localhost;Database=SalaryCalc;Trusted_Connection=True;Encrypt=False"));
+			serviceCollection.AddDbContext<SalaryCalcContext>(x => x.UseSqlServer(configuration.GetConnectionString("SalaryCalc")));
 
 			// Queries
 			serviceCollection.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<Employee>>, GetAllEmployeesQueryHandler>();

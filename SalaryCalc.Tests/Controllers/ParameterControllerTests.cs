@@ -21,7 +21,7 @@ namespace SalaryCalc.Tests.Controllers
 			mockMediator.Setup(x => x.Send(It.IsAny<GetParametersRequestModel>(), CancellationToken.None))
 				.ReturnsAsync(QueryMocks.parametersResponse);
 
-			ParameterController parameterController = new ParameterController(mockMediator.Object, mockLogger.Object);
+			ParameterController parameterController = new ParameterController(mockLogger.Object, mockMediator.Object);
 
 			var result = await parameterController.Get();
 			List<ParametersResponseModel> expected = QueryMocks.parametersResponse;
@@ -41,7 +41,7 @@ namespace SalaryCalc.Tests.Controllers
 			mockMediator.Setup(x => x.Send(It.IsAny<GetYearParamsRequestModel>(), CancellationToken.None))
 				.ReturnsAsync(QueryMocks.parameterResponse);
 
-			ParameterController parameterController = new ParameterController(mockMediator.Object, mockLogger.Object);
+			ParameterController parameterController = new ParameterController(mockLogger.Object, mockMediator.Object);
 
 			var result = await parameterController.GetByYear(2021);
 			ParametersResponseModel expected = QueryMocks.parameterResponse;
@@ -60,7 +60,7 @@ namespace SalaryCalc.Tests.Controllers
 			var mockMediator = new Mock<IMediator>();
 
 			mockMediator.Setup(x => x.Send(It.IsAny<PostParameterRequestModel>(), CancellationToken.None));
-			ParameterController parameterController = new ParameterController(mockMediator.Object, mockLogger.Object);
+			ParameterController parameterController = new ParameterController(mockLogger.Object, mockMediator.Object);
 
 			var result = await parameterController.Post(QueryMocks.postParameter);
 			var actual = result as NoContentResult;
@@ -76,7 +76,7 @@ namespace SalaryCalc.Tests.Controllers
 			var mockMediator = new Mock<IMediator>();
 
 			mockMediator.Setup(x => x.Send(It.IsAny<PutParameterRequestModel>(), CancellationToken.None));
-			ParameterController parameterController = new ParameterController(mockMediator.Object, mockLogger.Object);
+			ParameterController parameterController = new ParameterController(mockLogger.Object, mockMediator.Object);
 
 			var result = await parameterController.Put(QueryMocks.putParameter);
 			var actual = result as NoContentResult;

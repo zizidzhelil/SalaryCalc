@@ -11,14 +11,15 @@ namespace Services.Handlers.StudentHandlers
 {
 	public class GetEmployeesHandler : IRequestHandler<GetEmployeesRequestModel, IList<EmployeesResponseModel>>
 	{
-		private readonly IQueryHandler<GetAllEmployeesQuery, IList<Employee>> _getAllEmployeesQueryHandler;
-		private readonly ILogger _logger;
+        private readonly ILogger _logger;
+        private readonly IQueryHandler<GetAllEmployeesQuery, IList<Employee>> _getAllEmployeesQueryHandler;
+
 		public GetEmployeesHandler(
-			IQueryHandler<GetAllEmployeesQuery, IList<Employee>> getAllStudentsQueryHandler,
-			ILogger<GetEmployeesHandler> logger)
+            ILogger<GetEmployeesHandler> logger,
+            IQueryHandler<GetAllEmployeesQuery, IList<Employee>> getAllStudentsQueryHandler)
 		{
-			_getAllEmployeesQueryHandler = getAllStudentsQueryHandler;
-			_logger = logger;
+            _logger = logger;
+            _getAllEmployeesQueryHandler = getAllStudentsQueryHandler;
 		}
 
 		public async Task<IList<EmployeesResponseModel>> Handle(GetEmployeesRequestModel request, CancellationToken cancellationToken)

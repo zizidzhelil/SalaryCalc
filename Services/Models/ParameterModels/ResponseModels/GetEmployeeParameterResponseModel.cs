@@ -6,7 +6,7 @@ namespace Services.Models.ParameterModels.ResponseModels
     {
         public GetEmployeeParameterResponseModel(EmployeeParameter employeeParameter)
         {
-            Id= employeeParameter.Id;
+            Id = employeeParameter.Id;
             EmployeeId = employeeParameter.EmployeeId;
             Year = employeeParameter.Year;
             AnnualSalary = employeeParameter.AnnualSalary;

@@ -22,7 +22,7 @@ namespace Services.Tests.Handlers.ParameterHandlersTests
 			mockGetAllParametersQuery.Setup(x => x.HandleAsync(It.IsAny<GetAllParametersQuery>(), CancellationToken.None))
 				.ReturnsAsync(QueryMocks.parameters);
 
-			GetParametersHandler handler = new GetParametersHandler(mockGetAllParametersQuery.Object, mockLogger.Object);
+			GetParametersHandler handler = new GetParametersHandler(mockLogger.Object, mockGetAllParametersQuery.Object);
 
 			var actual = await handler.Handle(new GetParametersRequestModel(), CancellationToken.None);
 			var expected = QueryMocks.parameters.Select(x => new ParametersResponseModel(x)).ToList();

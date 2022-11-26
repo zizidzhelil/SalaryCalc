@@ -1,8 +1,6 @@
 using MediatR;
 using Services.DIConfiguration;
-using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Services.Tests")]
 namespace SalaryCalc
 {
 	public class Program
@@ -30,11 +28,9 @@ namespace SalaryCalc
 			builder.Services.AddSwaggerGen();
 			builder.Services.RegisterTypes(builder.Configuration);
 
-
 			builder.Services.AddMediatR(typeof(DependencyResolver).Assembly);
 
 			var app = builder.Build();
-
 			if (app.Environment.IsDevelopment())
 			{
 				app.UseSwagger();
@@ -42,13 +38,9 @@ namespace SalaryCalc
 			}
 
 			app.UseHttpsRedirection();
-
 			app.UseCors();
-
 			app.UseAuthorization();
-
 			app.MapControllers();
-
 			app.Run();
 		}
 	}

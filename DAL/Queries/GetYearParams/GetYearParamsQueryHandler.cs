@@ -2,8 +2,6 @@
 using Core.Entities;
 using Core.Queries;
 using Microsoft.Extensions.Logging;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DAL.Queries.GetYearParams
 {
@@ -21,7 +19,7 @@ namespace DAL.Queries.GetYearParams
 		public async Task<Parameter> HandleAsync(GetYearParamsQuery query, CancellationToken cancellationToken = default)
 		{
 			_logger.LogInformation(LogEvents.GettingItem, string.Format(LogMessageResources.GettingItem, nameof(Parameter), query.Year));
-			Parameter parameter = await _context.Parameters.FindAsync(query.Year);
+			Parameter parameter = await _context.Parameters.FindAsync(new object[] { query.Year }, cancellationToken: cancellationToken);
 
 			if (parameter == null)
 			{

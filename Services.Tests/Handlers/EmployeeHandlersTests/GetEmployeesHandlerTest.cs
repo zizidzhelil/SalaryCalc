@@ -22,7 +22,7 @@ namespace Services.Tests.Handlers.EmployeeHandlersTests
 			mockGetAllEmployeesQuery.Setup(x => x.HandleAsync(It.IsAny<GetAllEmployeesQuery>(), CancellationToken.None))
 				.ReturnsAsync(QueryMocks.employees);
 
-			GetEmployeesHandler handler = new GetEmployeesHandler(mockGetAllEmployeesQuery.Object, mockLogger.Object);
+			GetEmployeesHandler handler = new GetEmployeesHandler(mockLogger.Object, mockGetAllEmployeesQuery.Object);
 
 			var actual = await handler.Handle(new GetEmployeesRequestModel(), CancellationToken.None);
 			var expected = QueryMocks.employees.Select(e => new EmployeesResponseModel(e)).ToList();

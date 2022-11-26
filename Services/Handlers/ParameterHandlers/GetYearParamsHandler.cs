@@ -29,10 +29,10 @@ namespace Services.Handlers.ParameterHandlers
 		public async Task<ParametersResponseModel> Handle(GetYearParamsRequestModel request, CancellationToken cancellationToken)
 		{
 			_logger.LogInformation(LogEvents.ValidatingItem, string.Format(LogMessageResources.ValidatingItem, nameof(GetYearParamsRequestModel)));
-			await _validator.Validate(request);
+			await _validator.Validate(request, cancellationToken);
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(GetYearParamsRequestModel)));
 
-			Parameter parameter = await _queryHandler.HandleAsync(new GetYearParamsQuery(request.Year));
+			Parameter parameter = await _queryHandler.HandleAsync(new GetYearParamsQuery(request.Year), cancellationToken);
 
 			_logger.LogInformation(LogEvents.AssemblingResponse, string.Format(LogMessageResources.AssemblingResponse, nameof(ParametersResponseModel)));
 			ParametersResponseModel parameterResponse = new ParametersResponseModel(parameter);

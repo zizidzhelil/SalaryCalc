@@ -7,15 +7,15 @@ using Services.Models.ParameterModels.ResponseModels;
 namespace SalaryCalc.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("parameter")]
 	public class ParameterController : ControllerBase
 	{
-		private readonly IMediator _mediator;
-		private readonly ILogger _logger;
-		public ParameterController(IMediator mediator, ILogger<ParameterController> logger)
+        private readonly ILogger _logger;
+        private readonly IMediator _mediator;
+		public ParameterController(ILogger<ParameterController> logger, IMediator mediator)
 		{
-			_mediator = mediator;
-			_logger = logger;
+            _logger = logger;
+            _mediator = mediator;
 		}
 
 		[HttpGet]
@@ -27,7 +27,7 @@ namespace SalaryCalc.Controllers
 			return Ok(parameters);
 		}
 
-		[HttpGet("GetByYear")]
+		[HttpGet("get-by-year")]
 		public async Task<IActionResult> GetByYear([FromQuery] int year)
 		{
 			_logger.LogInformation(LogEvents.ControllerFound, string.Format(LogMessageResources.ControllerFound, nameof(ParameterController), nameof(GetByYear)));
@@ -36,7 +36,7 @@ namespace SalaryCalc.Controllers
 			return Ok(parameter);
 		}
 
-		[HttpGet("GetByEmployeeId")]
+		[HttpGet("get-by-employee-id")]
         public async Task<IActionResult> GetByEmployeeId([FromQuery] int employeeId)
         {
             _logger.LogInformation(LogEvents.ControllerFound, string.Format(LogMessageResources.ControllerFound, nameof(ParameterController), nameof(GetByEmployeeId)));

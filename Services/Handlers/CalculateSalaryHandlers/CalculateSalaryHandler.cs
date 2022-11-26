@@ -11,65 +11,68 @@ using Services.Models.CalculateSalaryModels.ResponseModels;
 
 namespace Services.Handlers.CalculateSalaryHandlers
 {
-	public class CalculateSalaryHandler : IRequestHandler<CalculateSalaryRequestModel, CalculateSalaryResponseModel>
-	{
-		private readonly IQueryHandler<GetYearParamsQuery, Parameter> _yearParamsQueryHandler;
-		private readonly IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter> _empAnnualSalaryForYearQueryHandler;
-		private readonly IValidation<CalculateSalaryRequestModel> _validator;
-		private readonly ILogger _logger;
+    public class CalculateSalaryHandler : IRequestHandler<CalculateSalaryRequestModel, CalculateSalaryResponseModel>
+    {
+        private readonly ILogger _logger;
+        private readonly IValidation<CalculateSalaryRequestModel> _validator;
+        private readonly IQueryHandler<GetYearParamsQuery, Parameter> _yearParamsQueryHandler;
+        private readonly IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter> _empAnnualSalaryForYearQueryHandler;
 
-		public CalculateSalaryHandler(
-			IQueryHandler<GetYearParamsQuery, Parameter> yearParamsQueryHandler,
-			IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter> empAnnualSalaryForYearQueryHandler,
-			IValidation<CalculateSalaryRequestModel> validator,
-			ILogger<CalculateSalaryHandler> logger)
-		{
-			_yearParamsQueryHandler = yearParamsQueryHandler;
-			_empAnnualSalaryForYearQueryHandler = empAnnualSalaryForYearQueryHandler;
-			_validator = validator;
-			_logger = logger;
-		}
+        public CalculateSalaryHandler(
+            ILogger<CalculateSalaryHandler> logger,
+            IValidation<CalculateSalaryRequestModel> validator,
+            IQueryHandler<GetYearParamsQuery, Parameter> yearParamsQueryHandler,
+            IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter> empAnnualSalaryForYearQueryHandler)
+        {
+            _logger = logger;
+            _validator = validator;
+            _yearParamsQueryHandler = yearParamsQueryHandler;
+            _empAnnualSalaryForYearQueryHandler = empAnnualSalaryForYearQueryHandler;
+        }
 
-		public async Task<CalculateSalaryResponseModel> Handle(CalculateSalaryRequestModel request, CancellationToken cancellationToken)
-		{
-			await _validator.Validate(request);
+        public async Task<CalculateSalaryResponseModel> Handle(CalculateSalaryRequestModel request, CancellationToken cancellationToken)
+        {
+            await _validator.Validate(request, cancellationToken);
 
-			Parameter yearParameters = await _yearParamsQueryHandler.HandleAsync(new GetYearParamsQuery(request.Year));
+            Parameter yearParameters = await _yearParamsQueryHandler.HandleAsync(new GetYearParamsQuery(request.Year), cancellationToken);
 
-			if(request.GrossSalary == null || request.GrossSalary == 0)
-			{
-				EmployeeParameter employeeParameter = await _empAnnualSalaryForYearQueryHandler.HandleAsync(new GetEmpAnnualSalaryForYearQuery(request.Year, request.EmployeeId));
-				request.GrossSalary = employeeParameter.AnnualSalary;
-			}
+            if (request.GrossSalary == 0)
+            {
+                var employeeParameter = await _empAnnualSalaryForYearQueryHandler.HandleAsync(
+                    new GetEmpAnnualSalaryForYearQuery(request.Year, request.EmployeeId), cancellationToken);
 
-			SalaryAndTaxes salaryAndTaxes = new()
-			{
-				GrossSalary = request.GrossSalary 
-			};
+                request.GrossSalary = employeeParameter.AnnualSalary;
+            }
 
-			if (request.GrossSalary <= yearParameters.MinThreshold)
-			{
-				salaryAndTaxes.TaxHealthAndSocialInsurance = 0;
-				salaryAndTaxes.TaxTotalIncome = 0;
-			}
-			else
-			{
-				salaryAndTaxes.TaxTotalIncome = yearParameters.TotalIncomeTaxPercentage * request.GrossSalary / 100;
+            SalaryAndTaxes salaryAndTaxes = new()
+            {
+                GrossSalary = request.GrossSalary
+            };
 
-				if (request.GrossSalary <= yearParameters.MaxThreshold)
-				{
-					salaryAndTaxes.TaxHealthAndSocialInsurance = yearParameters.HealthAndSocialInsurancePercentage * request.GrossSalary / 100;
-				}
-				else
-				{
-					salaryAndTaxes.TaxHealthAndSocialInsurance = yearParameters.HealthAndSocialInsurancePercentage * yearParameters.MaxThreshold / 100;
-				}
-			}
+            if (request.GrossSalary <= yearParameters.MinThreshold)
+            {
+                salaryAndTaxes.TaxHealthAndSocialInsurance = 0;
+                salaryAndTaxes.TaxTotalIncome = 0;
+            }
+            else
+            {
+                salaryAndTaxes.TaxTotalIncome = yearParameters.TotalIncomeTaxPercentage * request.GrossSalary / 100;
 
-			_logger.LogInformation(LogEvents.AssemblingResponse, string.Format(LogMessageResources.AssemblingResponse, nameof(CalculateSalaryResponseModel)));
-			CalculateSalaryResponseModel salaryAndTaxesResponse = new(salaryAndTaxes.NetSalary, salaryAndTaxes.TaxTotalIncome, salaryAndTaxes.TaxHealthAndSocialInsurance);
-			_logger.LogInformation(LogEvents.AssembledResponse, string.Format(LogMessageResources.AssembledResponse, nameof(CalculateSalaryResponseModel)));
-			return salaryAndTaxesResponse;
-		}
-	}
+                if (request.GrossSalary <= yearParameters.MaxThreshold)
+                {
+                    salaryAndTaxes.TaxHealthAndSocialInsurance = yearParameters.HealthAndSocialInsurancePercentage * request.GrossSalary / 100;
+                }
+                else
+                {
+                    salaryAndTaxes.TaxHealthAndSocialInsurance = yearParameters.HealthAndSocialInsurancePercentage * yearParameters.MaxThreshold / 100;
+                }
+            }
+
+            _logger.LogInformation(LogEvents.AssemblingResponse, string.Format(LogMessageResources.AssemblingResponse, nameof(CalculateSalaryResponseModel)));
+            CalculateSalaryResponseModel salaryAndTaxesResponse = new(salaryAndTaxes.NetSalary, salaryAndTaxes.TaxTotalIncome, salaryAndTaxes.TaxHealthAndSocialInsurance);
+            _logger.LogInformation(LogEvents.AssembledResponse, string.Format(LogMessageResources.AssembledResponse, nameof(CalculateSalaryResponseModel)));
+
+            return salaryAndTaxesResponse;
+        }
+    }
 }

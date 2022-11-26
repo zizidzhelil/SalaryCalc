@@ -1,7 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Core.Validation
+﻿namespace Core.Validation
 {
     public interface IValidation<T>
     {

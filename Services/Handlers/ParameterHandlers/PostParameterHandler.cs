@@ -10,26 +10,31 @@ namespace Services.Handlers.ParameterHandlers
 {
 	public class PostParameterHandler : AsyncRequestHandler<PostParameterRequestModel>
 	{
-		private readonly ICommandHandler<InsertParameterCommand> _insertParameterCommandHandler;
-		private readonly IValidation<PostParameterRequestModel> _validator;
-		private readonly ILogger _logger;
+        private readonly ILogger _logger;
+        private readonly IValidation<PostParameterRequestModel> _validator;
+        private readonly ICommandHandler<InsertParameterCommand> _insertParameterCommandHandler;
 
 		public PostParameterHandler(
-			ICommandHandler<InsertParameterCommand> insertParameterCommandHandler,
-			IValidation<PostParameterRequestModel> validator,
-			ILogger<PostParameterHandler> logger)
+            ILogger<PostParameterHandler> logger,
+            IValidation<PostParameterRequestModel> validator,
+            ICommandHandler<InsertParameterCommand> insertParameterCommandHandler)
 		{
-			_insertParameterCommandHandler = insertParameterCommandHandler;
-			_validator = validator;
-			_logger = logger;
+            _logger = logger;
+            _validator = validator;
+            _insertParameterCommandHandler = insertParameterCommandHandler;
 		}
 
 		protected override async Task Handle(PostParameterRequestModel request, CancellationToken cancellationToken)
 		{
-			await _validator.Validate(request);
+			await _validator.Validate(request, cancellationToken);
 
 			_logger.LogInformation(LogEvents.ValidatingItem, string.Format(LogMessageResources.ValidatingItem, nameof(PostParameterRequestModel)));
-			await _insertParameterCommandHandler.HandleAsync(new InsertParameterCommand(request.Year, request.MinThreshold, request.TotalIncomeTaxPercentage, request.HealthAndSocialInsurancePercentage, request.MaxThreshold), cancellationToken);
+			await _insertParameterCommandHandler.HandleAsync(new InsertParameterCommand(
+				request.Year, 
+				request.MinThreshold, 
+				request.TotalIncomeTaxPercentage, 
+				request.HealthAndSocialInsurancePercentage, 
+				request.MaxThreshold), cancellationToken);
 			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(PostParameterRequestModel)));
 		}
 	}
