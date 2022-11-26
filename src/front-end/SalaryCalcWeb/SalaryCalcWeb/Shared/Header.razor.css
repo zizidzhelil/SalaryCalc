@@ -1,0 +1,67 @@
+﻿.header-wrap {
+    margin: 0px auto 0px auto;
+}
+
+.logo {
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+    .logo h1 {
+        font-size: 54px;
+        color: #446396;
+        text-align: center;
+    }
+
+.menu-wrap {
+    height: auto;
+    background: #000
+}
+
+.menu-container {
+    text-align: center;
+    height: 60px;
+    background: #c55237;
+}
+
+    .menu-container ul {
+        display: inline-block;
+        font-family: 'Rokkitt', serif;
+        font-size: 19px;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-align: center;
+    }
+
+        .menu-container ul li {
+            display: block;
+            position: relative;
+            float: left;
+            text-align: center;
+        }
+
+    .menu-container li ul {
+        display: none;
+    }
+
+    .menu-container ul li a {
+        display: block;
+        text-decoration: none;
+        color: #ffffff;
+        padding: 20px;
+        white-space: nowrap;
+    }
+
+        .menu-container ul li a:hover {
+            background: #b34a30;
+            color: #fff;
+        }
+
+@media only screen and (max-width: 1000px) {
+    .header-wrap {
+        margin-bottom: 40px;
+    }
+}
