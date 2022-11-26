@@ -8,10 +8,13 @@ namespace SalaryCalcWeb.Store.Salaries
         {
             Employees = new List<EmployeeModel>();
             EmployeeParams = new List<EmployeeParameterModel>();
+            GrossSalary = 0;
         }
 
         public IList<EmployeeModel> Employees { get; init; }
 
         public IList<EmployeeParameterModel> EmployeeParams { get; init; }
+
+        public double GrossSalary { get; init; }
     }
 }

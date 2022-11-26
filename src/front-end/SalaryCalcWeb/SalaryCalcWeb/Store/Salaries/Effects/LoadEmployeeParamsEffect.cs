@@ -23,6 +23,15 @@ namespace SalaryCalcWeb.Store.Salaries.Effects
             dispatcher.Dispatch(new SetLoadingAction(false));
 
             dispatcher.Dispatch(new SetEmployeeParamsAction(employeeParams));
+
+            if (employeeParams.Any())
+            {
+                dispatcher.Dispatch(new SetGrossSalarayAction(employeeParams.First().AnnualSalary));
+            }
+            else
+            {
+                dispatcher.Dispatch(new SetGrossSalarayAction(0));
+            }
         }
     }
 }

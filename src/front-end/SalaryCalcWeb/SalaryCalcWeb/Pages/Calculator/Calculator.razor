@@ -9,7 +9,7 @@
 
 </select>
 
-<select>
+<select @bind="@SelectedParamsId">
 
     @foreach (var employeeParam in State.Value.EmployeeParams)
     {
@@ -17,3 +17,6 @@
     }
 
 </select>
+
+<strong>Gross Salary:</strong>
+<input @bind-value="@GrossSalary" />

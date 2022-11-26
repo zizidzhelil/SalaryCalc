@@ -11,7 +11,9 @@ namespace SalaryCalcWeb.Store.Salaries
         {
             return new SalaryState
             {
-                Employees = new List<EmployeeModel>()
+                Employees = new List<EmployeeModel>(),
+                EmployeeParams = new List<EmployeeParameterModel>(),
+                GrossSalary = 0
             };
         }
     }

@@ -25,10 +25,31 @@ namespace SalaryCalcWeb.Pages.Calculator
             }
         }
 
+        private int selectedParamsId;
+        public int SelectedParamsId
+        {
+            get
+            {
+                return selectedParamsId;
+            }
+            set
+            {
+                selectedParamsId = value;
+                Dispatcher.Dispatch(new SetGrossSalaryByEmployeeAction(value));
+            }
+        }
 
-        public int SelectedYear { get; set; }
-
-        public double GrossSalary { get; set; }
+        public double GrossSalary
+        {
+            get
+            {
+                return State.Value.GrossSalary;
+            }
+            set
+            {
+                Dispatcher.Dispatch(new SetGrossSalarayAction(value));
+            }
+        }
 
         protected override Task OnInitializedAsync()
         {
