@@ -34,6 +34,7 @@ namespace SalaryCalcWeb.Pages.Calculator
             {
                 Dispatcher.Dispatch(new SetSelectedYearAction(value));
                 Dispatcher.Dispatch(new SetGrossSalaryByEmployeeAction(SelectedEmployeeId, value));
+                Dispatcher.Dispatch(new LoadParameterAction(value));
             }
         }
 

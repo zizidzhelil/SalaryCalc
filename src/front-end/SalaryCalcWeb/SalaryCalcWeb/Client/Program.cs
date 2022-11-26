@@ -1,11 +1,14 @@
 using Core;
+using Core.Commands;
 using Core.Models;
 using Core.Queries;
 using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Services.Commands.UpdateParameters;
 using Services.Queries.GetAllEmployees;
 using Services.Queries.GetEmployeeParams;
+using Services.Queries.GetParameters;
 using Services.Queries.GetSalary;
 
 namespace SalaryCalcWeb
@@ -30,6 +33,8 @@ namespace SalaryCalcWeb
             builder.Services.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<EmployeeModel>>, GetAllEmployeesQueryHandler>();
             builder.Services.AddScoped<IQueryHandler<GetEmployeeParamsQuery, IList<EmployeeParameterModel>>, GetEmployeeParamsQueryHandler>();
             builder.Services.AddScoped<IQueryHandler<GetSalaryQuery, SalaryModel>, GetSalaryQueryHandler>();
+            builder.Services.AddScoped<IQueryHandler<GetParametersQuery, ParameterModel>, GetParametersQueryHandler>();
+            builder.Services.AddScoped<ICommandHandler<UpdateParametersCommand>, UpdateParametersCommandHandler>();
             {
 
                 var url = builder.Configuration.GetSection("SalaryCalcServer")["SalaryCalcServerHost"];
