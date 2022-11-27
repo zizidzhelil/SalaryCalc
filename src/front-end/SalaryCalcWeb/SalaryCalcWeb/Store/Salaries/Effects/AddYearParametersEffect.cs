@@ -20,6 +20,8 @@ namespace SalaryCalcWeb.Store.Salaries.Effects
             dispatcher.Dispatch(new SetLoadingAction(true));
             await _addYearParametersmmand.HandleAsync(new AddYearParametersCommand(action.YearParameters), CancellationToken.None);
             dispatcher.Dispatch(new SetLoadingAction(false));
+
+            dispatcher.Dispatch(new LoadAllParametersAction());
         }
     }
 }

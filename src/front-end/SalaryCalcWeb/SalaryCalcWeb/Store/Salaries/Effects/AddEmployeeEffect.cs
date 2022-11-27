@@ -1,5 +1,6 @@
 ﻿using Core.Commands;
 using Fluxor;
+using Microsoft.AspNetCore.Components;
 using SalaryCalcWeb.Store.Dom.Actions;
 using SalaryCalcWeb.Store.Salaries.Actions;
 using Services.Commands.AddEmployee;
@@ -20,6 +21,8 @@ namespace SalaryCalcWeb.Store.Salaries.Effects
             dispatcher.Dispatch(new SetLoadingAction(true));
             await _addEmployeeommand.HandleAsync(new AddEmployeeCommand(action.Employee), CancellationToken.None);
             dispatcher.Dispatch(new SetLoadingAction(false));
+
+            dispatcher.Dispatch(new LoadAllEmployeesAction());
         }
     }
 }

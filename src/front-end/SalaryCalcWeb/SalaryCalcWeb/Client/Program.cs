@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Services.Commands.AddEmployee;
 using Services.Commands.AddYearParameters;
 using Services.Commands.DeleteEmployee;
+using Services.Commands.DeleteParameter;
 using Services.Queries.GetAllEmployees;
 using Services.Queries.GetAllParameters;
 using Services.Queries.GetSalary;
@@ -37,6 +38,7 @@ namespace SalaryCalcWeb
             builder.Services.AddScoped<ICommandHandler<AddEmployeeCommand>, AddEmployeeCommandHandler>();
             builder.Services.AddScoped<ICommandHandler<AddYearParametersCommand>, AddYearParametersCommandHandler>();
             builder.Services.AddScoped<ICommandHandler<DeleteEmployeeCommand>, DeleteEmployeeCommandHandler>();
+            builder.Services.AddScoped<ICommandHandler<DeleteParameterCommand>, DeleteParameterCommandHandler>();
 
             var url = builder.Configuration.GetSection("SalaryCalcServer")["SalaryCalcServerHost"];
             builder.Services.AddHttpClient("SalaryCalc", httpClient =>

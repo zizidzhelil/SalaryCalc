@@ -42,7 +42,7 @@ namespace SalaryCalcWeb.Pages.Employee.Employees
             };
 
             Dispatcher.Dispatch(new AddEmployeeAction(employee));
-            Dispatcher.Dispatch(new LoadAllEmployeesAction());
+
             FirstName = string.Empty;
             MiddleName = string.Empty;
             LastName = string.Empty;

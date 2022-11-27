@@ -1,4 +1,5 @@
 ﻿@inherits FluxorComponent
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <table class="table">
     <thead>
@@ -13,13 +14,22 @@
     <tbody>
         @foreach (var parameter in State.Value.Parameters)
         {
-                <tr>
+            <tr>
                 <td>@parameter.Year</td>
                 <td>@parameter.MinThreshold</td>
                 <td>@parameter.MaxThreshold</td>
                 <td>@parameter.TotalIncomeTaxPercentage</td>
                 <td>@parameter.HealthAndSocialInsurancePercentage</td>
-                </tr>
+                <td><button class="btn" @onclick="() => Delete(parameter.Year)"><i class="fa fa-trash"></i></button></td>
+            </tr>
         }
+        <tr>
+            <td><input @bind-value="Year" /></td>
+            <td><input @bind-value="MinThreshold" /></td>
+            <td><input @bind-value="MaxThreshold" /></td>
+            <td><input @bind-value="TotalIncomeTaxPercentage" /></td>
+            <td><input @bind-value="HealthAndSocialInsurancePercentage" /></td>
+            <td><button class="btn" @onclick="Add"><i class="fa fa-plus"></i></button></td>
+        </tr>
     </tbody>
 </table>
