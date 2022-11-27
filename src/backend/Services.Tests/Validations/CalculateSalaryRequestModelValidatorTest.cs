@@ -16,9 +16,10 @@ namespace Services.Tests.Validations
 		{
 			List<string> errorMessages = new List<string>();
 			errorMessages.Add($"Employee with id {QueryMocks.calculateSalaryRequestModel.EmployeeId} not found");
-			errorMessages.Add($"Year is invalid");
+            errorMessages.Add($"Employee does not have a record for year {QueryMocks.calculateSalaryRequestModel.Year}");
+            errorMessages.Add($"Year is invalid");
 
-			var mockLogger = new Mock<ILogger<CalculateSalaryRequestModelValidator>>();
+            var mockLogger = new Mock<ILogger<CalculateSalaryRequestModelValidator>>();
 			var mockGetAllEmployeesQuery = new Mock<IQueryHandler<GetAllEmployeesQuery, IList<Employee>>>();
 
 			mockGetAllEmployeesQuery.Setup(x => x.HandleAsync(It.IsAny<GetAllEmployeesQuery>(), CancellationToken.None))

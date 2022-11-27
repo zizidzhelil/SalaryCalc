@@ -54,7 +54,7 @@ namespace Services.Tests.Mocks
 		{
 			Id = 1,
 			EmployeeId = 1,
-			Year = 2022,
+			ParameterId = 1,
 			AnnualSalary = 80000
 		};
 
@@ -88,17 +88,6 @@ namespace Services.Tests.Mocks
 			TotalIncomeTaxPercentage = 10
 		};
 
-		public static readonly PutParameterRequestModel putParameter = new PutParameterRequestModel()
-		{
-			Year = 2012,
-			MinThreshold = 1000,
-			MaxThreshold = 3000,
-			HealthAndSocialInsurancePercentage = 15,
-			TotalIncomeTaxPercentage = 10
-		};
-
-		public static readonly GetYearParamsRequestModel getYearParamsRequestModel = new GetYearParamsRequestModel(30659);
-
 		public static readonly PostEmployeeRequestModel postEmployeeRequestModel = new PostEmployeeRequestModel()
 		{
 			FirstName = "Number1",
@@ -108,15 +97,6 @@ namespace Services.Tests.Mocks
 		};
 
 		public static readonly PostParameterRequestModel postParameterRequestModel = new PostParameterRequestModel()
-		{
-			Year = 26598,
-			MinThreshold = -12,
-			TotalIncomeTaxPercentage = -15,
-			HealthAndSocialInsurancePercentage = -10,
-			MaxThreshold = -15
-		};
-
-		public static readonly PutParameterRequestModel putParameterRequestModel = new PutParameterRequestModel()
 		{
 			Year = 26598,
 			MinThreshold = -12,

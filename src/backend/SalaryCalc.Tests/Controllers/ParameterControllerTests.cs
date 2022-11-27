@@ -33,27 +33,6 @@ namespace SalaryCalc.Tests.Controllers
 		}
 
 		[Test]
-		public async Task GetByYearMethodTest()
-		{
-			var mockLogger = new Mock<ILogger<ParameterController>>();
-			var mockMediator = new Mock<IMediator>();
-
-			mockMediator.Setup(x => x.Send(It.IsAny<GetYearParamsRequestModel>(), CancellationToken.None))
-				.ReturnsAsync(QueryMocks.parameterResponse);
-
-			ParameterController parameterController = new ParameterController(mockLogger.Object, mockMediator.Object);
-
-			var result = await parameterController.GetByYear(2021);
-			ParametersResponseModel expected = QueryMocks.parameterResponse;
-
-			var actual = result as OkObjectResult;
-
-			Assert.That(actual.StatusCode, Is.EqualTo(200));
-			Assert.That(JsonConvert.SerializeObject(actual.Value), Is.EqualTo(JsonConvert.SerializeObject(expected)));
-		}
-
-
-		[Test]
 		public async Task PostMethodTest()
 		{
 			var mockLogger = new Mock<ILogger<ParameterController>>();
@@ -70,18 +49,17 @@ namespace SalaryCalc.Tests.Controllers
 		}
 
 		[Test]
-		public async Task PutMethodTest()
+		public async Task DeleteMethodTest()
 		{
 			var mockLogger = new Mock<ILogger<ParameterController>>();
 			var mockMediator = new Mock<IMediator>();
 
-			mockMediator.Setup(x => x.Send(It.IsAny<PutParameterRequestModel>(), CancellationToken.None));
+			mockMediator.Setup(x => x.Send(It.IsAny<int>(), CancellationToken.None));
 			ParameterController parameterController = new ParameterController(mockLogger.Object, mockMediator.Object);
 
-			var result = await parameterController.Put(QueryMocks.putParameter);
+			var result = await parameterController.Delete(2022);
 			var actual = result as NoContentResult;
 
-			mockMediator.Verify(x => x.Send(It.IsAny<PutParameterRequestModel>(), CancellationToken.None), Times.Once);
 			Assert.That(actual.StatusCode, Is.EqualTo(204));
 		}
 	}

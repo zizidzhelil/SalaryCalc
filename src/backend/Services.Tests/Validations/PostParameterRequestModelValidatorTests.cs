@@ -12,11 +12,12 @@ namespace Services.Tests.Validations
 		public async Task ValidateMethodTest()
 		{
 			List<string> errorMessages = new List<string>();
-			errorMessages.Add($"MinThreshold must be greater than 0");
-			errorMessages.Add($"TotalIncomeTaxPercentage can't be negative number");
-			errorMessages.Add($"HealthAndSocialInsurancePercentage can't be negative number");
+			errorMessages.Add("MinThreshold must be greater than 0");
+			errorMessages.Add("MaxThreshold must be greater than MinThreshold");
+			errorMessages.Add("TotalIncomeTaxPercentage can't be negative number");
+			errorMessages.Add("HealthAndSocialInsurancePercentage can't be negative number");
 
-			var mockLogger = new Mock<ILogger<PostParameterRequestModelValidator>>();
+            var mockLogger = new Mock<ILogger<PostParameterRequestModelValidator>>();
 
 
 			PostParameterRequestModelValidator modelValidator = new PostParameterRequestModelValidator(mockLogger.Object);
