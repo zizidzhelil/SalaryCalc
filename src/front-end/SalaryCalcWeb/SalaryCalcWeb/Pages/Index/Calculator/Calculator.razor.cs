@@ -50,7 +50,20 @@ namespace SalaryCalcWeb.Pages.Index.Calculator
                 var selectedEmployee = State.Value.Employees.FirstOrDefault(e => e.Id == SelectedEmployeeId);
                 if (selectedEmployee != null && selectedEmployee.EmployeeParameters != null)
                 {
-                    return selectedEmployee.EmployeeParameters.Select(e => e.Parameter)?.ToList();
+                    var parameters = selectedEmployee.EmployeeParameters?.Select(e => e.Parameter)?.ToList()
+                        ?? new List<ParameterModel>();
+
+                    parameters.Insert(0, new ParameterModel()
+                    {
+                        Id = -1,
+                        HealthAndSocialInsurancePercentage = 0,
+                        TotalIncomeTaxPercentage = 0,
+                        Year = -1,
+                        MaxThreshold = 0,
+                        MinThreshold = 0
+                    });
+
+                    return parameters;
                 }
 
                 return new List<ParameterModel>();
