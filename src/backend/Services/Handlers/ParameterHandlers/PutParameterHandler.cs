@@ -1,5 +1,4 @@
-﻿using Common.LogResources;
-using Core.Commands;
+﻿using Core.Commands;
 using Core.Validation;
 using DAL.Commands.UpdateParameter;
 using MediatR;
@@ -26,16 +25,11 @@ namespace Services.Handlers.ParameterHandlers
 
         protected override async Task Handle(PutParameterRequestModel request, CancellationToken cancellationToken)
         {
+            _logger.LogInformation($"Begin class {nameof(PutParameterHandler)} and method {nameof(PutParameterHandler.Handle)}");
             await _validator.Validate(request, cancellationToken);
 
-            _logger.LogInformation(LogEvents.ValidatingItem, string.Format(LogMessageResources.ValidatingItem, nameof(PutParameterRequestModel)));
-            await _commandHandler.HandleAsync(new UpdateParameterCommand(
-                request.Year,
-                request.MinThreshold,
-                request.TotalIncomeTaxPercentage,
-                request.HealthAndSocialInsurancePercentage,
-                request.MaxThreshold), cancellationToken);
-            _logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(PutParameterRequestModel)));
+            await _commandHandler.HandleAsync(new UpdateParameterCommand(request.ToParameter()), cancellationToken);
+            _logger.LogInformation($"End class {nameof(PutParameterHandler)} and method {nameof(PutParameterHandler.Handle)}");
         }
     }
 }

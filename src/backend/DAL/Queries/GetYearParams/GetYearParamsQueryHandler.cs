@@ -1,5 +1,4 @@
-﻿using Common.LogResources;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Queries;
 using Microsoft.Extensions.Logging;
 
@@ -18,16 +17,11 @@ namespace DAL.Queries.GetYearParams
 
 		public async Task<Parameter> HandleAsync(GetYearParamsQuery query, CancellationToken cancellationToken = default)
 		{
-			_logger.LogInformation(LogEvents.GettingItem, string.Format(LogMessageResources.GettingItem, nameof(Parameter), query.Year));
-			Parameter parameter = await _context.Parameters.FindAsync(new object[] { query.Year }, cancellationToken: cancellationToken);
+            _logger.LogInformation($"Begin class {nameof(GetYearParamsQueryHandler)} and method {nameof(GetYearParamsQueryHandler.HandleAsync)}");
+            Parameter parameter = await _context.Parameters.FindAsync(new object[] { query.Year }, cancellationToken: cancellationToken);
+            _logger.LogInformation($"End class {nameof(GetYearParamsQueryHandler)} and method {nameof(GetYearParamsQueryHandler.HandleAsync)}");
 
-			if (parameter == null)
-			{
-				_logger.LogWarning(LogEvents.GetItemNotFound, string.Format(LogMessageResources.GetItemNotFound, nameof(Parameter), query.Year));
-			}
-
-			_logger.LogInformation(LogEvents.GotItem, string.Format(LogMessageResources.GotItem, nameof(Parameter)));
-			return parameter;
+            return parameter;
 		}
 	}
 }

@@ -1,31 +1,15 @@
 ﻿using Core.Commands;
+using Core.Entities;
 
 namespace DAL.Commands.UpdateParameter
 {
-	public class UpdateParameterCommand : ICommand
-	{
-		public UpdateParameterCommand(
-			int year,
-			double minThreshold,
-			double totalIncomeTaxPercentage,
-			double healthAndSocialInsurancePercentage,
-			double maxThreshold)
-		{
-			Year = year;
-			MinThreshold = minThreshold;
-			TotalIncomeTaxPercentage = totalIncomeTaxPercentage;
-			HealthAndSocialInsurancePercentage = healthAndSocialInsurancePercentage;
-			MaxThreshold = maxThreshold;
-		}
+    public class UpdateParameterCommand : ICommand
+    {
+        public UpdateParameterCommand(Parameter parameter)
+        {
+            Parameter = parameter;
+        }
 
-		public int Year { get; }
-
-		public double MinThreshold { get; }
-
-		public double TotalIncomeTaxPercentage { get; }
-
-		public double HealthAndSocialInsurancePercentage { get; }
-
-		public double MaxThreshold { get; }
-	}
+        public Parameter Parameter { get; set; }
+    }
 }

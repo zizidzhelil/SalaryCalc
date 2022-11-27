@@ -12,16 +12,15 @@ namespace DAL.Configs
 
             builder.Property(x => x.AnnualSalary).IsRequired();
             builder.Property(x => x.EmployeeId).IsRequired();
-            builder.Property(x => x.Year).IsRequired();
+            builder.Property(x => x.ParameterId).IsRequired();
 
             builder.HasOne(x => x.Employee)
                 .WithMany(x => x.Parameters)
                 .HasForeignKey(x => x.EmployeeId);
 
-
             builder.HasOne(x => x.Parameter)
               .WithMany(x => x.Parameters)
-              .HasForeignKey(x => x.Year);
+              .HasForeignKey(x => x.ParameterId);
         }
     }
 }

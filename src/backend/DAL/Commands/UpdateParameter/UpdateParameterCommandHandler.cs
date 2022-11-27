@@ -1,5 +1,4 @@
-﻿using Common.LogResources;
-using Core.Commands;
+﻿using Core.Commands;
 using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -19,24 +18,26 @@ namespace DAL.Commands.UpdateParameter
 
         public async Task HandleAsync(UpdateParameterCommand command, CancellationToken cancellationToken = default)
         {
-            _logger.LogInformation(LogEvents.GettingItem, string.Format(LogMessageResources.InsertingItem, nameof(Parameter)));
-            Parameter parameter = await _context.Parameters.SingleOrDefaultAsync(p => p.Year == command.Year, cancellationToken: cancellationToken);
+            _logger.LogInformation($"Begin class {nameof(UpdateParameterCommandHandler)} and method {nameof(UpdateParameterCommandHandler.HandleAsync)}");
+            Parameter parameter = await _context.Parameters.SingleOrDefaultAsync(p => p.Year == command.Parameter.Year, cancellationToken: cancellationToken);
 
             if (parameter != null)
             {
-                parameter.MinThreshold = command.MinThreshold;
-                parameter.TotalIncomeTaxPercentage = command.TotalIncomeTaxPercentage;
-                parameter.HealthAndSocialInsurancePercentage = command.HealthAndSocialInsurancePercentage;
-                parameter.MaxThreshold = command.MaxThreshold;
+                parameter.MinThreshold = command.Parameter.MinThreshold;
+                parameter.TotalIncomeTaxPercentage = command.Parameter.TotalIncomeTaxPercentage;
+                parameter.HealthAndSocialInsurancePercentage = command.Parameter.HealthAndSocialInsurancePercentage;
+                parameter.MaxThreshold = command.Parameter.MaxThreshold;
 
-                _logger.LogInformation(LogEvents.GotItem, string.Format(LogMessageResources.GotItem, nameof(Parameter)));
+                _logger.LogInformation($"{nameof(parameter)} is not null in class {nameof(UpdateParameterCommandHandler)} and method {nameof(UpdateParameterCommandHandler.HandleAsync)}");
                 _context.Update(parameter);
 
                 await _context.SaveChangesAsync(cancellationToken);
+
+                _logger.LogInformation($"End class {nameof(UpdateParameterCommandHandler)} and method {nameof(UpdateParameterCommandHandler.HandleAsync)}");
             }
             else
             {
-                _logger.LogWarning(LogEvents.GetItemNotFound, string.Format(LogMessageResources.GetItemNotFound, nameof(Parameter), command.Year));
+                _logger.LogInformation($"{nameof(parameter)} is null in class {nameof(UpdateParameterCommandHandler)} and method {nameof(UpdateParameterCommandHandler.HandleAsync)}");
             }
         }
     }

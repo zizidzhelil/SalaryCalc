@@ -8,9 +8,9 @@ namespace DAL.Configs
     {
         public void Configure(EntityTypeBuilder<Parameter> builder)
         {
-            builder.HasKey(x => x.Year);
+            builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Year).ValueGeneratedNever();
+            builder.Property(x => x.Year).IsRequired();
             builder.Property(x => x.MinThreshold).IsRequired();
             builder.Property(x => x.MaxThreshold).IsRequired();
             builder.Property(x => x.TotalIncomeTaxPercentage).IsRequired();
