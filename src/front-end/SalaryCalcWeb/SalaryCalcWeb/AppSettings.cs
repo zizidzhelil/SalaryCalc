@@ -19,8 +19,6 @@ namespace SalaryCalcWeb
 
         public string ParameterPath => _salaryCalcServerSection[nameof(ParameterPath)];
 
-        public string ParameterByYearPath => _salaryCalcServerSection[nameof(ParameterByYearPath)];
-
         public string SalaryPath => _salaryCalcServerSection[nameof(SalaryPath)];
     }
 }

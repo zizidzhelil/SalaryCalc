@@ -34,7 +34,9 @@ namespace SalaryCalcWeb.Store.Salaries.Effects
                         FirstName = employee.FirstName,
                         LastName = employee.LastName,
                         Year = param.Parameter.Year,
-                        AnnualSalary = param.AnnualSalary
+                        AnnualSalary = param.AnnualSalary,
+                        EmployeeParameterId = param.Id,
+                        EmployeeId = employee.Id
                     });
                 }
             }

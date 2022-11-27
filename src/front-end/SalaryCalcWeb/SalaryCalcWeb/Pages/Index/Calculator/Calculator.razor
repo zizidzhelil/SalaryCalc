@@ -3,7 +3,7 @@
 <div class="container">
     <form>
         <label>Employee</label>
-        <select @bind="@SelectedEmployeeId" name="Employee" pla>
+        <select @bind="@SelectedEmployeeId">
             @foreach (var employee in State.Value.Employees)
             {
                 <option value=@employee.Id>@employee.FirstName @employee.LastName</option>

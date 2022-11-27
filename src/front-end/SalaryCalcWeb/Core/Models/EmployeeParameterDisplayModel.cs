@@ -9,5 +9,9 @@
         public int Year { get; set; }
 
         public double AnnualSalary { get; set; }
+
+        public int EmployeeParameterId { get; set; }
+
+        public int EmployeeId { get; set; }
     }
 }

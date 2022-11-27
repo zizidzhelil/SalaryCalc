@@ -10,8 +10,6 @@
 
         string ParameterPath { get; }
 
-        string ParameterByYearPath { get; }
-
         string SalaryPath { get; }
     }
 }

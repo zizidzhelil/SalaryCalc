@@ -1,4 +1,5 @@
-﻿using Fluxor;
+﻿using Core.Models;
+using Fluxor;
 using SalaryCalcWeb.Store.Salaries.Actions;
 
 namespace SalaryCalcWeb.Store.Salaries.Reducers

@@ -6,8 +6,10 @@ using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Services.Commands.AddEmployee;
+using Services.Commands.AddEmployeeParameter;
 using Services.Commands.AddYearParameters;
 using Services.Commands.DeleteEmployee;
+using Services.Commands.DeleteEmployeeParameter;
 using Services.Commands.DeleteParameter;
 using Services.Queries.GetAllEmployees;
 using Services.Queries.GetAllParameters;
@@ -37,8 +39,10 @@ namespace SalaryCalcWeb
             builder.Services.AddScoped<IQueryHandler<GetSalaryQuery, SalaryModel>, GetSalaryQueryHandler>();
             builder.Services.AddScoped<ICommandHandler<AddEmployeeCommand>, AddEmployeeCommandHandler>();
             builder.Services.AddScoped<ICommandHandler<AddYearParametersCommand>, AddYearParametersCommandHandler>();
+            builder.Services.AddScoped<ICommandHandler<AddEmployeeParameterCommand>, AddEmployeeParameterCommandHandler>();
             builder.Services.AddScoped<ICommandHandler<DeleteEmployeeCommand>, DeleteEmployeeCommandHandler>();
             builder.Services.AddScoped<ICommandHandler<DeleteParameterCommand>, DeleteParameterCommandHandler>();
+            builder.Services.AddScoped<ICommandHandler<DeleteEmployeeParameterCommand>, DeleteEmployeeParameterCommandHandler>();
 
             var url = builder.Configuration.GetSection("SalaryCalcServer")["SalaryCalcServerHost"];
             builder.Services.AddHttpClient("SalaryCalc", httpClient =>

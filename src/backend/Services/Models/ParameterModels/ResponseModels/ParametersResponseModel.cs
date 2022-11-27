@@ -6,6 +6,7 @@ namespace Services.Models.ParameterModels.ResponseModels
     {
         public ParametersResponseModel()
         {
+            Id = 0;
             Year = 0;
             MinThreshold = 0;
             TotalIncomeTaxPercentage = 0;
@@ -17,6 +18,7 @@ namespace Services.Models.ParameterModels.ResponseModels
         {
             if (parameter != null)
             {
+                Id = parameter.Id;
                 Year = parameter.Year;
                 MinThreshold = parameter.MinThreshold;
                 MaxThreshold = parameter.MaxThreshold;
@@ -24,6 +26,8 @@ namespace Services.Models.ParameterModels.ResponseModels
                 HealthAndSocialInsurancePercentage = parameter.HealthAndSocialInsurancePercentage;
             }
         }
+
+        public int Id { get; set; }
 
         public int Year { get; set; }
 

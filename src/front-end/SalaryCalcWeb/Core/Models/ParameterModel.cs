@@ -4,6 +4,9 @@ namespace Core.Models
 {
     public class ParameterModel
     {
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+
         [JsonPropertyName("year")]
         public int Year { get; set; }
 

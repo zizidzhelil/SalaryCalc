@@ -1,4 +1,5 @@
 ﻿@inherits FluxorComponent
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 @page "/employee-parameters"
 
@@ -17,7 +18,28 @@
                 <td>@employee.FirstName @employee.LastName</td>
                 <td>@employee.Year</td>
                 <td>@employee.AnnualSalary</td>
+                <td><button class="btn" @onclick="() => Delete(employee.EmployeeParameterId)"><i class="fa fa-trash"></i></button></td>
             </tr>
         }
+        <tr>        
+            <td>
+                <select @bind="@EmployeeId">
+                    @foreach (var employee in State.Value.Employees)
+                    {
+                        <option value=@employee.Id>@employee.FirstName @employee.LastName</option>
+                    }
+                </select>
+            </td>
+            <td>
+                <select @bind="@ParameterId">
+                    @foreach (var parameter in State.Value.Parameters)
+                    {
+                        <option value=@parameter.Id>@parameter.Year</option>
+                    }
+                </select>
+            </td>
+            <td><input @bind-value="GrossSalary"/></td>
+            <td><button class="btn" @onclick="Add"><i class="fa fa-plus"></i></button></td>
+        </tr>
     </tbody>
 </table>
