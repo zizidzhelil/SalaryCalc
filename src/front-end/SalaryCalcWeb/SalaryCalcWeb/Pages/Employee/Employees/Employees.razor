@@ -1,5 +1,5 @@
 ﻿@inherits FluxorComponent
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <table class="table">
     <thead>
         <tr>
@@ -17,7 +17,15 @@
                 <td>@employee.MiddleName</td>
                 <td>@employee.LastName</td>
                 <td>@employee.BirthDate</td>
+                <td><button class="btn"><i class="fa fa-trash"></i></button></td>
             </tr>
         }
+        <tr>
+            <td><input @bind-value="FirstName" /></td>
+            <td><input @bind-value="MiddleName" /></td>
+            <td><input @bind-value="LastName"/></td>
+            <td><input type="date" @bind-value="BirthDate" /></td>
+            <td><button class="btn" @onclick="Add"><i class="fa fa-plus"></i></button></td>
+        </tr>
     </tbody>
 </table>

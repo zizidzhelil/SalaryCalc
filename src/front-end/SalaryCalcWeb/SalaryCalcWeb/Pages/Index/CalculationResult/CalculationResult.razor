@@ -2,16 +2,16 @@
 
 @if (State.Value.Salary != null)
 {
-    <div style="margin-block: 0.2em">
-        <strong>Net Salary:</strong>
-        <input @bind-value="@State.Value.Salary.NetSalary" />
-    </div>
-    <div style="margin-block: 0.2em">
-        <strong>Tax Total Income:</strong>
-        <input @bind-value="@State.Value.Salary.TaxTotalIncome" />
-    </div>
-    <div style="margin-block: 0.2em">
-        <strong>Tax Health and Social Insurance:</strong>
-        <input @bind-value="@State.Value.Salary.TaxHealthAndSocialInsurance" />
+    <div class="container">
+        <form>
+            <label>Net Salary</label>
+            <input @bind-value="@State.Value.Salary.NetSalary" />
+
+            <label>Tax Total Income</label>
+            <input @bind-value="@State.Value.Salary.TaxTotalIncome" />
+
+            <label>Tax Health and Social Insurance</label>
+            <input @bind-value="@State.Value.Salary.TaxHealthAndSocialInsurance" />
+        </form>
     </div>
 }
