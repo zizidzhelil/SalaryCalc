@@ -25,5 +25,8 @@ namespace Core.Models
 
         [JsonPropertyName("birthDate")]
         public DateTime BirthDate { get; set; }
+
+        [JsonPropertyName("employeeParameters")]
+        public List<EmployeeParameterModel> EmployeeParameters { get; set; }
     }
 }

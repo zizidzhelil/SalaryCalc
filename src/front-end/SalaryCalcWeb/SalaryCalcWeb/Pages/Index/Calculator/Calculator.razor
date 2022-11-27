@@ -1,6 +1,6 @@
 ﻿@inherits FluxorComponent
 
-@*<select @bind="@SelectedEmployeeId">
+<select @bind="@SelectedEmployeeId">
 
     @foreach (var employee in State.Value.Employees)
     {
@@ -9,16 +9,22 @@
 
 </select>
 
-<select @bind="@SelectedParamsId">
+@if (Parameters != null && Parameters.Any())
+{
+    <select @bind="@SelectedYear">
 
-    @foreach (var employeeParam in State.Value.EmployeeParams)
-    {
-        <option value=@employeeParam.Year>@employeeParam.Year</option>
-    }
+        @foreach (var parameter in Parameters)
+        {
+            <option value=@parameter.Year>@parameter.Year</option>
+        }
 
-</select>
+    </select>
+}
 
-<strong>Gross Salary:</strong>
-<input @bind-value="@GrossSalary" />
+@if (AnnualGrossSalary.HasValue)
+{
+    <strong>Gross Salary:</strong>
+    <input @bind-value="@AnnualGrossSalary" />
+}
 
-<button @onclick="Calculate" class="btn btn-primary">Calculate</button>*@
+<button @onclick="Calculate" class="btn btn-primary">Calculate</button>

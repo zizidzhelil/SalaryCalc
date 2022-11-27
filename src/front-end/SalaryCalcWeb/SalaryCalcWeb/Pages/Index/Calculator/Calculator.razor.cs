@@ -1,4 +1,5 @@
-﻿using Fluxor;
+﻿using Core.Models;
+using Fluxor;
 using Microsoft.AspNetCore.Components;
 using SalaryCalcWeb.Store.Salaries;
 using SalaryCalcWeb.Store.Salaries.Actions;
@@ -11,6 +12,53 @@ namespace SalaryCalcWeb.Pages.Index.Calculator
 
         [Inject] public IState<SalaryState> State { get; set; }
 
+        public int SelectedEmployeeId { get; set; }
+
+        private int selectedYear;
+
+        public int SelectedYear
+        {
+            get { return selectedYear; }
+            set
+            {
+                selectedYear = value;
+
+                var selectedEmployee = State.Value.Employees
+                    .FirstOrDefault(e => e.Id == SelectedEmployeeId);
+
+                if (selectedEmployee != null &&
+                    selectedEmployee.EmployeeParameters != null &&
+                    selectedEmployee.EmployeeParameters.Any())
+                {
+                    var selectedParameter = selectedEmployee.EmployeeParameters.FirstOrDefault(e => e.Parameter.Year == value);
+                    if (selectedParameter != null)
+                    {
+                        AnnualGrossSalary = selectedParameter.AnnualSalary;
+                    }
+                }
+                else
+                {
+                    AnnualGrossSalary = null;
+                }
+            }
+        }
+
+        public List<ParameterModel> Parameters
+        {
+            get
+            {
+                var selectedEmployee = State.Value.Employees.FirstOrDefault(e => e.Id == SelectedEmployeeId);
+                if (selectedEmployee != null && selectedEmployee.EmployeeParameters != null)
+                {
+                    return selectedEmployee.EmployeeParameters.Select(e => e.Parameter)?.ToList();
+                }
+
+                return new List<ParameterModel>();
+            }
+        }
+
+        public double? AnnualGrossSalary { get; set; }
+
         protected override Task OnInitializedAsync()
         {
             Dispatcher.Dispatch(new LoadAllEmployeesAction());
@@ -20,7 +68,7 @@ namespace SalaryCalcWeb.Pages.Index.Calculator
 
         protected void Calculate()
         {
-            //Dispatcher.Dispatch(new LoadNetSalaryAction(SelectedEmployeeId, SelectedParamsId, GrossSalary));
+            Dispatcher.Dispatch(new LoadNetSalaryAction(SelectedEmployeeId, SelectedYear, AnnualGrossSalary.Value));
         }
     }
 }
