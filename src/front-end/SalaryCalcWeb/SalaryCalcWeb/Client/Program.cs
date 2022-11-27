@@ -9,6 +9,7 @@ using Services.Commands.AddEmployee;
 using Services.Commands.AddYearParameters;
 using Services.Commands.UpdateParameters;
 using Services.Queries.GetAllEmployees;
+using Services.Queries.GetAllParameters;
 using Services.Queries.GetEmployeeParams;
 using Services.Queries.GetParameters;
 using Services.Queries.GetSalary;
@@ -33,6 +34,7 @@ namespace SalaryCalcWeb
 
             builder.Services.AddScoped<IAppSettings>(provider => new AppSettings(builder.Configuration));
             builder.Services.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<EmployeeModel>>, GetAllEmployeesQueryHandler>();
+            builder.Services.AddScoped<IQueryHandler<GetAllParametersQuery, IList<ParameterModel>>, GetAllParametersQueryHandler>();
             builder.Services.AddScoped<IQueryHandler<GetEmployeeParamsQuery, IList<EmployeeParameterModel>>, GetEmployeeParamsQueryHandler>();
             builder.Services.AddScoped<IQueryHandler<GetSalaryQuery, SalaryModel>, GetSalaryQueryHandler>();
             builder.Services.AddScoped<IQueryHandler<GetParametersQuery, ParameterModel>, GetParametersQueryHandler>();

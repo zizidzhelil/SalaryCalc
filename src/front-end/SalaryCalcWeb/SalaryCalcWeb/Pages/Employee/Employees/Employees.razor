@@ -1,0 +1,23 @@
+﻿@inherits FluxorComponent
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name:</th>
+            <th>Middle Name:</th>
+            <th>Last Name:</th>
+            <th>Birth Date:</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in State.Value.Employees)
+        {
+            <tr>
+                <td>@employee.FirstName</td>
+                <td>@employee.MiddleName</td>
+                <td>@employee.LastName</td>
+                <td>@employee.BirthDate</td>
+            </tr>
+        }
+    </tbody>
+</table>

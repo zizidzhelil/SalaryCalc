@@ -1,0 +1,25 @@
+﻿@inherits FluxorComponent
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Year:</th>
+            <th>Min Threshold:</th>
+            <th>Max Threshold:</th>
+            <th>Total Income Tax Percentage:</th>
+            <th>Health and Social Insurance Percentage:</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var parameter in State.Value.Parameters)
+        {
+                <tr>
+                <td>@parameter.Year</td>
+                <td>@parameter.MinThreshold</td>
+                <td>@parameter.MaxThreshold</td>
+                <td>@parameter.TotalIncomeTaxPercentage</td>
+                <td>@parameter.HealthAndSocialInsurancePercentage</td>
+                </tr>
+        }
+    </tbody>
+</table>
