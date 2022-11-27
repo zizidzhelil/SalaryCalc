@@ -25,18 +25,19 @@ using Services.Validations;
 namespace Services.DIConfiguration
 {
     public static class DependencyResolver
-	{
-		public static IServiceCollection RegisterTypes(
-		   this IServiceCollection serviceCollection,
-		   IConfiguration configuration)
-		{
-			// Add database connection string
-			serviceCollection.AddDbContext<SalaryCalcContext>(x => x.UseSqlServer(configuration.GetConnectionString("SalaryCalc")));
+    {
+        public static IServiceCollection RegisterTypes(
+           this IServiceCollection serviceCollection,
+           IConfiguration configuration)
+        {
+            // Add database connection string
+            serviceCollection.AddDbContext<SalaryCalcContext>(x => x.UseSqlServer(configuration.GetConnectionString("SalaryCalc")));
 
-			// Queries
-			serviceCollection.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<Employee>>, GetAllEmployeesQueryHandler>();
-			serviceCollection.AddScoped<IQueryHandler<GetYearParamsQuery, Parameter>, GetYearParamsQueryHandler>();
-			serviceCollection.AddScoped<IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter>, GetEmpAnnualSalaryForYearQueryHandler>();
+            // Queries
+            serviceCollection.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<Employee>>, GetAllEmployeesQueryHandler>();
+            serviceCollection.AddScoped<IQueryHandler<GetYearParamsQuery, Parameter>, GetYearParamsQueryHandler>();
+            serviceCollection.AddScoped<IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter>, GetEmpAnnualSalaryForYearQueryHandler>();
+            serviceCollection.AddScoped<IQueryHandler<GetYearParamsQuery, Parameter>, GetYearParamsQueryHandler>();
 
             // Commands
             serviceCollection.AddScoped<ICommandHandler<DeleteEmployeeCommand>, DeleteEmployeeCommandHandler>();
@@ -45,7 +46,7 @@ namespace Services.DIConfiguration
             serviceCollection.AddScoped<ICommandHandler<InsertEmployeeCommand>, InsertEmployeeCommandHandler>();
             serviceCollection.AddScoped<ICommandHandler<InsertEmployeeParameterCommand>, InsertEmployeeParameterCommandHandler>();
             serviceCollection.AddScoped<ICommandHandler<InsertParameterCommand>, InsertParameterCommandHandler>();
-			serviceCollection.AddScoped<ICommandHandler<UpdateParameterCommand>, UpdateParameterCommandHandler>();
+            serviceCollection.AddScoped<ICommandHandler<UpdateParameterCommand>, UpdateParameterCommandHandler>();
 
             // Validations
             serviceCollection.AddScoped<IValidation<CalculateSalaryRequestModel>, CalculateSalaryRequestModelValidator>();
@@ -57,7 +58,8 @@ namespace Services.DIConfiguration
             serviceCollection.AddScoped<IValidation<PostParameterRequestModel>, PostParameterRequestModelValidator>();
             serviceCollection.AddScoped<IValidation<PutParameterRequestModel>, PutParameterRequestModelValidator>();
 
-			return serviceCollection;
-		}
-	}
+
+            return serviceCollection;
+        }
+    }
 }

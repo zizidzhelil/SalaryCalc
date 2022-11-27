@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(SalaryCalcContext))]
-    [Migration("20221122180816_seedData")]
-    partial class seedData
+    [Migration("20221127091121_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,14 +152,14 @@ namespace DAL.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Year")
+                    b.Property<int>("ParameterId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("Year");
+                    b.HasIndex("ParameterId");
 
                     b.ToTable("EmployeeParameter");
 
@@ -169,80 +169,80 @@ namespace DAL.Migrations
                             Id = 1,
                             AnnualSalary = 80000.0,
                             EmployeeId = 1,
-                            Year = 2022
+                            ParameterId = 2
                         },
                         new
                         {
                             Id = 2,
                             AnnualSalary = 79000.0,
                             EmployeeId = 1,
-                            Year = 2021
+                            ParameterId = 3
                         },
                         new
                         {
                             Id = 3,
                             AnnualSalary = 70000.0,
                             EmployeeId = 2,
-                            Year = 2022
+                            ParameterId = 2
                         },
                         new
                         {
                             Id = 4,
                             AnnualSalary = 75000.0,
                             EmployeeId = 3,
-                            Year = 2022
+                            ParameterId = 2
                         },
                         new
                         {
                             Id = 5,
                             AnnualSalary = 73000.0,
                             EmployeeId = 4,
-                            Year = 2022
+                            ParameterId = 2
                         },
                         new
                         {
                             Id = 6,
                             AnnualSalary = 71000.0,
                             EmployeeId = 4,
-                            Year = 2021
+                            ParameterId = 3
                         },
                         new
                         {
                             Id = 7,
                             AnnualSalary = 60000.0,
                             EmployeeId = 5,
-                            Year = 2022
+                            ParameterId = 2
                         },
                         new
                         {
                             Id = 8,
                             AnnualSalary = 59000.0,
                             EmployeeId = 5,
-                            Year = 2021
+                            ParameterId = 3
                         },
                         new
                         {
                             Id = 9,
                             AnnualSalary = 50000.0,
                             EmployeeId = 6,
-                            Year = 2022
+                            ParameterId = 2
                         },
                         new
                         {
                             Id = 10,
                             AnnualSalary = 48000.0,
                             EmployeeId = 6,
-                            Year = 2021
+                            ParameterId = 3
                         });
                 });
 
             modelBuilder.Entity("Core.Entities.Parameter", b =>
                 {
-                    b.Property<int>("Year")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Year"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<double>("HealthAndSocialInsurancePercentage")
                         .HasColumnType("float");
@@ -256,82 +256,94 @@ namespace DAL.Migrations
                     b.Property<double>("TotalIncomeTaxPercentage")
                         .HasColumnType("float");
 
-                    b.HasKey("Year");
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Parameters");
 
                     b.HasData(
                         new
                         {
-                            Year = 2023,
+                            Id = 1,
                             HealthAndSocialInsurancePercentage = 16.0,
                             MaxThreshold = 3300.0,
                             MinThreshold = 1200.0,
-                            TotalIncomeTaxPercentage = 12.0
+                            TotalIncomeTaxPercentage = 12.0,
+                            Year = 2023
                         },
                         new
                         {
-                            Year = 2022,
+                            Id = 2,
                             HealthAndSocialInsurancePercentage = 15.0,
                             MaxThreshold = 3000.0,
                             MinThreshold = 1000.0,
-                            TotalIncomeTaxPercentage = 10.0
+                            TotalIncomeTaxPercentage = 10.0,
+                            Year = 2022
                         },
                         new
                         {
-                            Year = 2021,
+                            Id = 3,
                             HealthAndSocialInsurancePercentage = 15.0,
                             MaxThreshold = 3000.0,
                             MinThreshold = 950.0,
-                            TotalIncomeTaxPercentage = 9.0
+                            TotalIncomeTaxPercentage = 9.0,
+                            Year = 2021
                         },
                         new
                         {
-                            Year = 2020,
+                            Id = 4,
                             HealthAndSocialInsurancePercentage = 13.0,
                             MaxThreshold = 2800.0,
                             MinThreshold = 900.0,
-                            TotalIncomeTaxPercentage = 9.0
+                            TotalIncomeTaxPercentage = 9.0,
+                            Year = 2020
                         },
                         new
                         {
-                            Year = 2019,
+                            Id = 5,
                             HealthAndSocialInsurancePercentage = 12.0,
                             MaxThreshold = 2700.0,
                             MinThreshold = 850.0,
-                            TotalIncomeTaxPercentage = 8.0
+                            TotalIncomeTaxPercentage = 8.0,
+                            Year = 2019
                         },
                         new
                         {
-                            Year = 2018,
+                            Id = 6,
                             HealthAndSocialInsurancePercentage = 12.0,
                             MaxThreshold = 2500.0,
                             MinThreshold = 800.0,
-                            TotalIncomeTaxPercentage = 8.0
+                            TotalIncomeTaxPercentage = 8.0,
+                            Year = 2018
                         },
                         new
                         {
-                            Year = 2017,
+                            Id = 7,
                             HealthAndSocialInsurancePercentage = 10.0,
                             MaxThreshold = 2400.0,
                             MinThreshold = 700.0,
-                            TotalIncomeTaxPercentage = 8.0
+                            TotalIncomeTaxPercentage = 8.0,
+                            Year = 2017
                         },
                         new
                         {
-                            Year = 2016,
+                            Id = 8,
                             HealthAndSocialInsurancePercentage = 10.0,
                             MaxThreshold = 2300.0,
                             MinThreshold = 650.0,
-                            TotalIncomeTaxPercentage = 7.0
+                            TotalIncomeTaxPercentage = 7.0,
+                            Year = 2016
                         },
                         new
                         {
-                            Year = 2015,
+                            Id = 9,
                             HealthAndSocialInsurancePercentage = 9.0,
                             MaxThreshold = 2000.0,
                             MinThreshold = 600.0,
-                            TotalIncomeTaxPercentage = 7.0
+                            TotalIncomeTaxPercentage = 7.0,
+                            Year = 2015
                         });
                 });
 
@@ -345,7 +357,7 @@ namespace DAL.Migrations
 
                     b.HasOne("Core.Entities.Parameter", "Parameter")
                         .WithMany("Parameters")
-                        .HasForeignKey("Year")
+                        .HasForeignKey("ParameterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
