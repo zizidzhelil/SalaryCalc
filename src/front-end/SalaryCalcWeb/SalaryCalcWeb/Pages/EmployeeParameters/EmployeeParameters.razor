@@ -1,0 +1,23 @@
+﻿@inherits FluxorComponent
+
+@page "/employee-parameters"
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name:</th>
+            <th>Year:</th>
+            <th>Gross Salary:</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in State.Value.EmployeeParametersDisplay)
+        {
+            <tr>
+                <td>@employee.FirstName @employee.LastName</td>
+                <td>@employee.Year</td>
+                <td>@employee.AnnualSalary</td>
+            </tr>
+        }
+    </tbody>
+</table>

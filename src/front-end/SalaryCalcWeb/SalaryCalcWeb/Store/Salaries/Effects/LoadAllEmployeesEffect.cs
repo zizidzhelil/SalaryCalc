@@ -23,7 +23,24 @@ namespace SalaryCalcWeb.Store.Salaries.Effects
             IList<EmployeeModel> employees = await _getAllEmployeesQuery.HandleAsync(new GetAllEmployeesQuery());
             dispatcher.Dispatch(new SetLoadingAction(false));
 
+            List<EmployeeParameterDisplayModel> employeeParameters = new List<EmployeeParameterDisplayModel>();
+
+            foreach (var employee in employees)
+            {
+                foreach (var param in employee.EmployeeParameters)
+                {
+                    employeeParameters.Add(new EmployeeParameterDisplayModel()
+                    {
+                        FirstName = employee.FirstName,
+                        LastName = employee.LastName,
+                        Year = param.Parameter.Year,
+                        AnnualSalary = param.AnnualSalary
+                    });
+                }
+            }
+
             dispatcher.Dispatch(new SetEmployeesAction(employees));
+            dispatcher.Dispatch(new SetEmployeeParameterDisplayAction(employeeParameters));
         }
     }
 }
