@@ -32,34 +32,6 @@ namespace SalaryCalcWeb.Store.Salaries.Effects
             dispatcher.Dispatch(new SetLoadingAction(false));
 
             dispatcher.Dispatch(new SetEmployeesAction(employees));
-
-            if (employees.Any())
-            {
-                dispatcher.Dispatch(new SetSelectedEmployeeAction(employees.First().Id));
-
-                dispatcher.Dispatch(new SetLoadingAction(true));
-                IList<EmployeeParameterModel> employeeParams = await _getEmployeeParamQuery
-                    .HandleAsync(new GetEmployeeParamsQuery(employees.First().Id));
-                dispatcher.Dispatch(new SetLoadingAction(false));
-
-                dispatcher.Dispatch(new SetEmployeeParamsAction(employeeParams));
-                if (employeeParams.Any())
-                {
-                    var employeeParam = employeeParams.First();
-                    dispatcher.Dispatch(new SetSelectedYearAction(employeeParam.Year));
-                    dispatcher.Dispatch(new SetGrossSalarayAction(employeeParam.AnnualSalary));
-
-                    dispatcher.Dispatch(new SetLoadingAction(true));
-                    var result = await _getParametersQuery.HandleAsync(new GetParametersQuery(employeeParam.Year));
-                    dispatcher.Dispatch(new SetLoadingAction(false));
-
-                    dispatcher.Dispatch(new SetParametersAction(result));
-                }
-                else
-                {
-                    dispatcher.Dispatch(new SetGrossSalarayAction(0));
-                }
-            }
         }
     }
 }

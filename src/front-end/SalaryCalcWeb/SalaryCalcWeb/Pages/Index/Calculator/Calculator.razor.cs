@@ -11,45 +11,6 @@ namespace SalaryCalcWeb.Pages.Index.Calculator
 
         [Inject] public IState<SalaryState> State { get; set; }
 
-        public int SelectedEmployeeId
-        {
-            get
-            {
-                return State.Value.SelectedEmployeeId;
-            }
-            set
-            {
-                Dispatcher.Dispatch(new SetSelectedEmployeeAction(value));
-                Dispatcher.Dispatch(new LoadEmployeeParamsAction(value));
-            }
-        }
-
-        public int SelectedParamsId
-        {
-            get
-            {
-                return State.Value.SelectedYear;
-            }
-            set
-            {
-                Dispatcher.Dispatch(new SetSelectedYearAction(value));
-                Dispatcher.Dispatch(new SetGrossSalaryByEmployeeAction(SelectedEmployeeId, value));
-                Dispatcher.Dispatch(new LoadParameterAction(value));
-            }
-        }
-
-        public double GrossSalary
-        {
-            get
-            {
-                return State.Value.GrossSalary;
-            }
-            set
-            {
-                Dispatcher.Dispatch(new SetGrossSalarayAction(value));
-            }
-        }
-
         protected override Task OnInitializedAsync()
         {
             Dispatcher.Dispatch(new LoadAllEmployeesAction());
@@ -59,7 +20,7 @@ namespace SalaryCalcWeb.Pages.Index.Calculator
 
         protected void Calculate()
         {
-            Dispatcher.Dispatch(new LoadNetSalaryAction(SelectedEmployeeId, SelectedParamsId, GrossSalary));
+            //Dispatcher.Dispatch(new LoadNetSalaryAction(SelectedEmployeeId, SelectedParamsId, GrossSalary));
         }
     }
 }
