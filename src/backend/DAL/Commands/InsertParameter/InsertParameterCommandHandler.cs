@@ -17,7 +17,7 @@ namespace DAL.Commands.InsertParameter
         public async Task HandleAsync(InsertParameterCommand command, CancellationToken cancellationToken = default)
         {
             _logger.LogInformation($"Begin class {nameof(InsertParameterCommandHandler)} and method {nameof(InsertParameterCommandHandler.HandleAsync)}");
-            await _context.AddAsync(command.Parameter, cancellationToken);
+            await _context.Parameters.AddAsync(command.Parameter, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
             _logger.LogInformation($"End class {nameof(InsertParameterCommandHandler)} and method {nameof(InsertParameterCommandHandler.HandleAsync)}");
         }

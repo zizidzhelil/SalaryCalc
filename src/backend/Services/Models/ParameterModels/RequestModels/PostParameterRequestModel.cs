@@ -19,6 +19,7 @@ namespace Services.Models.ParameterModels.RequestModels
         {
             return new Parameter
             {
+                Year = Year,
                 MinThreshold = MinThreshold,
                 TotalIncomeTaxPercentage = TotalIncomeTaxPercentage,
                 HealthAndSocialInsurancePercentage = HealthAndSocialInsurancePercentage,

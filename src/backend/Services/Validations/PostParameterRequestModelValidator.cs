@@ -33,7 +33,7 @@ namespace Services.Validations
                 errorMessages.Add(message);
             }
             
-            if (model.MaxThreshold > model.MinThreshold)
+            if (model.MaxThreshold < model.MinThreshold)
             {
                 string message = $"{nameof(model.MaxThreshold)} must be greater than {nameof(model.MinThreshold)}";
                 errorMessages.Add(message);
