@@ -9,8 +9,8 @@ using DAL.Commands.DeleteParameter;
 using DAL.Commands.InsertEmployee;
 using DAL.Commands.InsertEmployeeParameter;
 using DAL.Commands.InsertParameter;
-using DAL.Commands.UpdateParameter;
 using DAL.Queries.GetAllEmployees;
+using DAL.Queries.GetAllParameters;
 using DAL.Queries.GetEmpAnnualSalaryForYear;
 using DAL.Queries.GetYearParams;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +35,7 @@ namespace Services.DIConfiguration
 
             // Queries
             serviceCollection.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<Employee>>, GetAllEmployeesQueryHandler>();
+            serviceCollection.AddScoped<IQueryHandler<GetAllParametersQuery, IList<Parameter>>, GetAllParametersQueryHandler>();
             serviceCollection.AddScoped<IQueryHandler<GetYearParamsQuery, Parameter>, GetYearParamsQueryHandler>();
             serviceCollection.AddScoped<IQueryHandler<GetEmpAnnualSalaryForYearQuery, EmployeeParameter>, GetEmpAnnualSalaryForYearQueryHandler>();
             serviceCollection.AddScoped<IQueryHandler<GetYearParamsQuery, Parameter>, GetYearParamsQueryHandler>();
@@ -46,7 +47,6 @@ namespace Services.DIConfiguration
             serviceCollection.AddScoped<ICommandHandler<InsertEmployeeCommand>, InsertEmployeeCommandHandler>();
             serviceCollection.AddScoped<ICommandHandler<InsertEmployeeParameterCommand>, InsertEmployeeParameterCommandHandler>();
             serviceCollection.AddScoped<ICommandHandler<InsertParameterCommand>, InsertParameterCommandHandler>();
-            serviceCollection.AddScoped<ICommandHandler<UpdateParameterCommand>, UpdateParameterCommandHandler>();
 
             // Validations
             serviceCollection.AddScoped<IValidation<CalculateSalaryRequestModel>, CalculateSalaryRequestModelValidator>();
@@ -56,8 +56,6 @@ namespace Services.DIConfiguration
             serviceCollection.AddScoped<IValidation<PostEmployeeParameterRequestModel>, PostEmployeeParameterRequestModelValidator>();
             serviceCollection.AddScoped<IValidation<PostEmployeeRequestModel>, PostEmployeeRequestModelValidator>();
             serviceCollection.AddScoped<IValidation<PostParameterRequestModel>, PostParameterRequestModelValidator>();
-            serviceCollection.AddScoped<IValidation<PutParameterRequestModel>, PutParameterRequestModelValidator>();
-
 
             return serviceCollection;
         }

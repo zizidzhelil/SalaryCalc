@@ -14,7 +14,7 @@ namespace Services.Handlers.ParameterHandlers
         private readonly ICommandHandler<DeleteParameterCommand> _commandHandler;
 
         public DeleteParameterHandler(
-            ILogger<PutParameterHandler> logger,
+            ILogger<DeleteParameterHandler> logger,
             IValidation<DeleteParameterRequestModel> validator,
             ICommandHandler<DeleteParameterCommand> commandHandler)
         {

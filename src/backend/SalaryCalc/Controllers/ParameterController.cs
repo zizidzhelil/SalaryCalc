@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Services.Models.EmployeeModels.RequestModels;
+using Services.Models.EmployeeModels.ResponseModels;
 using Services.Models.ParameterModels.RequestModels;
+using Services.Models.ParameterModels.ResponseModels;
 
 namespace SalaryCalc.Controllers
 {
@@ -16,6 +19,17 @@ namespace SalaryCalc.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            _logger.LogInformation($"Begin class {nameof(ParameterController)} and method {nameof(ParameterController.Get)}");
+
+            IList<ParametersResponseModel> parametersResponse = await _mediator.Send(new GetParametersRequestModel());
+
+            _logger.LogInformation($"End class {nameof(ParameterController)} and method {nameof(ParameterController.Get)}");
+            return Ok(parametersResponse);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PostParameterRequestModel model)
         {
@@ -24,17 +38,6 @@ namespace SalaryCalc.Controllers
             await _mediator.Send(model);
 
             _logger.LogInformation($"End class {nameof(ParameterController)} and method {nameof(ParameterController.Post)}");
-            return NoContent();
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> Put([FromBody] PutParameterRequestModel model)
-        {
-            _logger.LogInformation($"Begin class {nameof(ParameterController)} and method {nameof(ParameterController.Put)}");
-
-            await _mediator.Send(model);
-
-            _logger.LogInformation($"End class {nameof(ParameterController)} and method {nameof(ParameterController.Put)}");
             return NoContent();
         }
 
