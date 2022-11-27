@@ -1,6 +1,7 @@
 ﻿using Core.Models;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using SalaryCalcWeb.Store.Salaries;
 using SalaryCalcWeb.Store.Salaries.Actions;
 
@@ -19,6 +20,8 @@ namespace SalaryCalcWeb.Pages.Employee.Employees
         public string LastName { get; set; }
 
         public DateTime BirthDate { get; set; }
+
+        public int Id { get; set; }
 
 
         protected override Task OnInitializedAsync()
@@ -44,6 +47,11 @@ namespace SalaryCalcWeb.Pages.Employee.Employees
             MiddleName = string.Empty;
             LastName = string.Empty;
             BirthDate = new DateTime();
+        }
+
+        protected void Delete(int employeeId)
+        {
+            Dispatcher.Dispatch(new DeleteEmployeeAction(employeeId));
         }
     }
 }
