@@ -6,11 +6,13 @@ using Fluxor;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Services.Commands.AddEmployee;
+using Services.Commands.AddEmployeeParameter;
 using Services.Commands.AddYearParameters;
-using Services.Commands.UpdateParameters;
+using Services.Commands.DeleteEmployee;
+using Services.Commands.DeleteEmployeeParameter;
+using Services.Commands.DeleteParameter;
 using Services.Queries.GetAllEmployees;
-using Services.Queries.GetEmployeeParams;
-using Services.Queries.GetParameters;
+using Services.Queries.GetAllParameters;
 using Services.Queries.GetSalary;
 
 namespace SalaryCalcWeb
@@ -33,12 +35,14 @@ namespace SalaryCalcWeb
 
             builder.Services.AddScoped<IAppSettings>(provider => new AppSettings(builder.Configuration));
             builder.Services.AddScoped<IQueryHandler<GetAllEmployeesQuery, IList<EmployeeModel>>, GetAllEmployeesQueryHandler>();
-            builder.Services.AddScoped<IQueryHandler<GetEmployeeParamsQuery, IList<EmployeeParameterModel>>, GetEmployeeParamsQueryHandler>();
+            builder.Services.AddScoped<IQueryHandler<GetAllParametersQuery, IList<ParameterModel>>, GetAllParametersQueryHandler>();
             builder.Services.AddScoped<IQueryHandler<GetSalaryQuery, SalaryModel>, GetSalaryQueryHandler>();
-            builder.Services.AddScoped<IQueryHandler<GetParametersQuery, ParameterModel>, GetParametersQueryHandler>();
-            builder.Services.AddScoped<ICommandHandler<UpdateParametersCommand>, UpdateParametersCommandHandler>();
             builder.Services.AddScoped<ICommandHandler<AddEmployeeCommand>, AddEmployeeCommandHandler>();
             builder.Services.AddScoped<ICommandHandler<AddYearParametersCommand>, AddYearParametersCommandHandler>();
+            builder.Services.AddScoped<ICommandHandler<AddEmployeeParameterCommand>, AddEmployeeParameterCommandHandler>();
+            builder.Services.AddScoped<ICommandHandler<DeleteEmployeeCommand>, DeleteEmployeeCommandHandler>();
+            builder.Services.AddScoped<ICommandHandler<DeleteParameterCommand>, DeleteParameterCommandHandler>();
+            builder.Services.AddScoped<ICommandHandler<DeleteEmployeeParameterCommand>, DeleteEmployeeParameterCommandHandler>();
 
             var url = builder.Configuration.GetSection("SalaryCalcServer")["SalaryCalcServerHost"];
             builder.Services.AddHttpClient("SalaryCalc", httpClient =>

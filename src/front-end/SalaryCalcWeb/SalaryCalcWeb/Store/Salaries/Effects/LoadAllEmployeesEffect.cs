@@ -4,25 +4,17 @@ using Fluxor;
 using SalaryCalcWeb.Store.Dom.Actions;
 using SalaryCalcWeb.Store.Salaries.Actions;
 using Services.Queries.GetAllEmployees;
-using Services.Queries.GetEmployeeParams;
-using Services.Queries.GetParameters;
 
 namespace SalaryCalcWeb.Store.Salaries.Effects
 {
     public class LoadAllEmployeesEffect : Effect<LoadAllEmployeesAction>
     {
         private readonly IQueryHandler<GetAllEmployeesQuery, IList<EmployeeModel>> _getAllEmployeesQuery;
-        private readonly IQueryHandler<GetEmployeeParamsQuery, IList<EmployeeParameterModel>> _getEmployeeParamQuery;
-        private readonly IQueryHandler<GetParametersQuery, ParameterModel> _getParametersQuery;
 
         public LoadAllEmployeesEffect(
-            IQueryHandler<GetAllEmployeesQuery, IList<EmployeeModel>> getAllEmployeesQuery,
-            IQueryHandler<GetEmployeeParamsQuery, IList<EmployeeParameterModel>> getEmployeeParamQuery,
-            IQueryHandler<GetParametersQuery, ParameterModel> getParametersQuery)
+            IQueryHandler<GetAllEmployeesQuery, IList<EmployeeModel>> getAllEmployeesQuery)
         {
             _getAllEmployeesQuery = getAllEmployeesQuery;
-            _getEmployeeParamQuery = getEmployeeParamQuery;
-            _getParametersQuery = getParametersQuery;
         }
 
         public override async Task HandleAsync(LoadAllEmployeesAction action, IDispatcher dispatcher)
@@ -31,35 +23,26 @@ namespace SalaryCalcWeb.Store.Salaries.Effects
             IList<EmployeeModel> employees = await _getAllEmployeesQuery.HandleAsync(new GetAllEmployeesQuery());
             dispatcher.Dispatch(new SetLoadingAction(false));
 
-            dispatcher.Dispatch(new SetEmployeesAction(employees));
+            List<EmployeeParameterDisplayModel> employeeParameters = new List<EmployeeParameterDisplayModel>();
 
-            if (employees.Any())
+            foreach (var employee in employees)
             {
-                dispatcher.Dispatch(new SetSelectedEmployeeAction(employees.First().Id));
-
-                dispatcher.Dispatch(new SetLoadingAction(true));
-                IList<EmployeeParameterModel> employeeParams = await _getEmployeeParamQuery
-                    .HandleAsync(new GetEmployeeParamsQuery(employees.First().Id));
-                dispatcher.Dispatch(new SetLoadingAction(false));
-
-                dispatcher.Dispatch(new SetEmployeeParamsAction(employeeParams));
-                if (employeeParams.Any())
+                foreach (var param in employee.EmployeeParameters)
                 {
-                    var employeeParam = employeeParams.First();
-                    dispatcher.Dispatch(new SetSelectedYearAction(employeeParam.Year));
-                    dispatcher.Dispatch(new SetGrossSalarayAction(employeeParam.AnnualSalary));
-
-                    dispatcher.Dispatch(new SetLoadingAction(true));
-                    var result = await _getParametersQuery.HandleAsync(new GetParametersQuery(employeeParam.Year));
-                    dispatcher.Dispatch(new SetLoadingAction(false));
-
-                    dispatcher.Dispatch(new SetParametersAction(result));
-                }
-                else
-                {
-                    dispatcher.Dispatch(new SetGrossSalarayAction(0));
+                    employeeParameters.Add(new EmployeeParameterDisplayModel()
+                    {
+                        FirstName = employee.FirstName,
+                        LastName = employee.LastName,
+                        Year = param.Parameter.Year,
+                        AnnualSalary = param.AnnualSalary,
+                        EmployeeParameterId = param.Id,
+                        EmployeeId = employee.Id
+                    });
                 }
             }
+
+            dispatcher.Dispatch(new SetEmployeesAction(employees));
+            dispatcher.Dispatch(new SetEmployeeParameterDisplayAction(employeeParameters));
         }
     }
 }

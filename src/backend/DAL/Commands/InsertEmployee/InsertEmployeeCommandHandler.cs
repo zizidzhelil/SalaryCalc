@@ -1,6 +1,4 @@
-﻿using Common.LogResources;
-using Core.Commands;
-using Core.Entities;
+﻿using Core.Commands;
 using Microsoft.Extensions.Logging;
 
 namespace DAL.Commands.InsertEmployee
@@ -18,19 +16,12 @@ namespace DAL.Commands.InsertEmployee
 
         public async Task HandleAsync(InsertEmployeeCommand command, CancellationToken cancellationToken = default)
         {
-            _logger.LogInformation(LogEvents.InsertingItem, string.Format(LogMessageResources.InsertingItem, nameof(Employee)));
+            _logger.LogInformation($"Begin class {nameof(InsertEmployeeCommandHandler)} and method {nameof(InsertEmployeeCommandHandler.HandleAsync)}");
 
-            Employee employee = new Employee()
-            {
-                FirstName = command.FirstName,
-                MiddleName = command.MiddleName,
-                LastName = command.LastName,
-                BirthDate = command.BirthDate
-            };
-
-            await _context.AddAsync(employee, cancellationToken);
+            await _context.AddAsync(command.Employee, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
-            _logger.LogInformation(LogEvents.InsertedItem, string.Format(LogMessageResources.InsertedItem, nameof(employee)));
+
+            _logger.LogInformation($"End class {nameof(InsertEmployeeCommandHandler)} and method {nameof(InsertEmployeeCommandHandler.HandleAsync)}");
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Common.Exceptions;
-using Common.LogResources;
 using Core.Entities;
 using Core.Queries;
 using Core.Validation;
@@ -10,48 +9,52 @@ using System.Text.RegularExpressions;
 
 namespace Services.Validations
 {
-	public class CalculateSalaryRequestModelValidator : IValidation<CalculateSalaryRequestModel>
-	{
-		private readonly ILogger _logger;
-		private readonly IQueryHandler<GetAllEmployeesQuery, IList<Employee>> _employeesQueryHandler;
+    public class CalculateSalaryRequestModelValidator : IValidation<CalculateSalaryRequestModel>
+    {
+        private readonly ILogger _logger;
+        private readonly IQueryHandler<GetAllEmployeesQuery, IList<Employee>> _employeesQueryHandler;
 
-		public CalculateSalaryRequestModelValidator(
-			ILogger<CalculateSalaryRequestModelValidator> logger,
-			IQueryHandler<GetAllEmployeesQuery, IList<Employee>> employeesQueryHandler)
-		{
-			_logger = logger;
-			_employeesQueryHandler = employeesQueryHandler;
-		}
+        public CalculateSalaryRequestModelValidator(
+            ILogger<CalculateSalaryRequestModelValidator> logger,
+            IQueryHandler<GetAllEmployeesQuery, IList<Employee>> employeesQueryHandler)
+        {
+            _logger = logger;
+            _employeesQueryHandler = employeesQueryHandler;
+        }
 
-		public async Task Validate(CalculateSalaryRequestModel model, CancellationToken cancellationToken = default)
-		{
-			List<string> errorMessages = new List<string>();
+        public async Task Validate(CalculateSalaryRequestModel model, CancellationToken cancellationToken = default)
+        {
+            _logger.LogInformation($"Begin class {nameof(CalculateSalaryRequestModelValidator)} and method {nameof(CalculateSalaryRequestModelValidator.Validate)}");
 
-			_logger.LogInformation(LogEvents.ValidatingItem, string.Format(LogMessageResources.ValidatingItem, nameof(model.EmployeeId)));
-			IList<Employee> employees = await _employeesQueryHandler.HandleAsync(new GetAllEmployeesQuery(), cancellationToken);
-			if(!employees.Any(x => x.Id == model.EmployeeId))
-			{
-				string message = $"Employee with id {model.EmployeeId} not found";
-				_logger.LogWarning(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.EmployeeId), message));
-				errorMessages.Add(message);
-			}
-			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.EmployeeId)));
+            List<string> errorMessages = new List<string>();
 
-			_logger.LogInformation(LogEvents.ValidatingItem, string.Format(LogMessageResources.ValidatingItem, nameof(model.Year)));
-			Regex yearRegex = new("[12]\\d{3}");
-			if (!yearRegex.IsMatch(model.Year.ToString()))
-			{
-				string message = $"{nameof(model.Year)} is invalid";
-				_logger.LogWarning(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.Year), message));
-				errorMessages.Add(message);
-			}
-			_logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.Year)));
+            IList<Employee> employees = await _employeesQueryHandler.HandleAsync(new GetAllEmployeesQuery(), cancellationToken);
+            if (!employees.Any(x => x.Id == model.EmployeeId))
+            {
+                string message = $"Employee with id {model.EmployeeId} not found";
+                errorMessages.Add(message);
+            }
 
-			if (errorMessages.Any())
-			{
-				string message = string.Join(Environment.NewLine, errorMessages);
-				throw new NotFoundException(message);
-			}
-		}
-	}
+            var year = employees.Where(e => e.Id == model.EmployeeId).SelectMany(e => e.Parameters);
+            if (!year.Any(y => y.Parameter.Year == model.Year))
+            {
+                string message = $"Employee does not have a record for year {model.Year}";
+                errorMessages.Add(message);
+            }
+
+            Regex yearRegex = new("[12]\\d{3}");
+            if (!yearRegex.IsMatch(model.Year.ToString()))
+            {
+                string message = $"{nameof(model.Year)} is invalid";
+                errorMessages.Add(message);
+            }
+
+            _logger.LogInformation($"End class {nameof(CalculateSalaryRequestModelValidator)} and method {nameof(CalculateSalaryRequestModelValidator.Validate)}");
+            if (errorMessages.Any())
+            {
+                string message = string.Join(Environment.NewLine, errorMessages);
+                throw new NotFoundException(message);
+            }
+        }
+    }
 }

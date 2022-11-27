@@ -1,0 +1,31 @@
+﻿@inherits FluxorComponent
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name:</th>
+            <th>Middle Name:</th>
+            <th>Last Name:</th>
+            <th>Birth Date:</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in State.Value.Employees.Where(x => x.Id > 0))
+        {
+            <tr>
+                <td>@employee.FirstName</td>
+                <td>@employee.MiddleName</td>
+                <td>@employee.LastName</td>
+                <td>@employee.BirthDate</td>
+                <td><button class="btn" @onclick="() => Delete(employee.Id)"><i class="fa fa-trash"></i></button></td>
+            </tr>
+        }
+        <tr>
+            <td><input @bind-value="FirstName" /></td>
+            <td><input @bind-value="MiddleName" /></td>
+            <td><input @bind-value="LastName" /></td>
+            <td><input type="date" @bind-value="BirthDate" /></td>
+            <td><button class="btn" @onclick="Add"><i class="fa fa-plus"></i></button></td>
+        </tr>
+    </tbody>
+</table>

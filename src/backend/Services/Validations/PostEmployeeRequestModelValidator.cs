@@ -1,5 +1,4 @@
 ﻿using Common.Exceptions;
-using Common.LogResources;
 using Core.Validation;
 using Microsoft.Extensions.Logging;
 using Services.Models.EmployeeModels.RequestModels;
@@ -18,45 +17,36 @@ namespace Services.Validations
 
         public Task Validate(PostEmployeeRequestModel model, CancellationToken cancellationToken = default)
         {
+            _logger.LogInformation($"Begin class {nameof(PostEmployeeRequestModelValidator)} and method {nameof(PostEmployeeRequestModelValidator.Validate)}");
             List<string> errorMessages = new List<string>();
 
-            _logger.LogInformation(LogEvents.ValidatingItem, string.Format(LogMessageResources.ValidatingItem, nameof(model.BirthDate)));
             if (model.BirthDate.Year < DateTime.Today.AddYears(-80).Year
                 || model.BirthDate.Year > DateTime.Today.AddYears(-15).Year)
             {
                 string message = $"{nameof(model.BirthDate)} is invalid";
-                _logger.LogWarning(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.BirthDate), message));
                 errorMessages.Add(message);
             }
-            _logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.BirthDate)));
-
-            _logger.LogInformation(LogEvents.ValidatingItem, string.Format(LogMessageResources.ValidatingItem, nameof(model.FirstName)));
+            
             Regex nameRegex = new("[a-zA-Z]+");
             if (!nameRegex.IsMatch(model.FirstName))
             {
                 string message = $"Invalid {nameof(model.FirstName)} given";
-                _logger.LogWarning(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.FirstName), message));
                 errorMessages.Add(message);
             }
-            _logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.FirstName)));
-
-            _logger.LogInformation(LogEvents.ValidatingItem, string.Format(LogMessageResources.ValidatingItem, nameof(model.MiddleName)));
+            
             if (!nameRegex.IsMatch(model.MiddleName))
             {
                 string message = $"Invalid {nameof(model.MiddleName)} given";
-                _logger.LogWarning(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.MiddleName), message));
                 errorMessages.Add(message);
             }
-            _logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.MiddleName)));
-
-            _logger.LogInformation(LogEvents.ValidatingItem, string.Format(LogMessageResources.ValidatingItem, nameof(model.LastName)));
+            
             if (!nameRegex.IsMatch(model.LastName))
             {
                 string message = $"Invalid {nameof(model.LastName)} given";
-                _logger.LogWarning(LogEvents.ValidationFailed, string.Format(LogMessageResources.ValidationFailed, nameof(model.LastName), message));
                 errorMessages.Add(message);
             }
-            _logger.LogInformation(LogEvents.ValidatedItem, string.Format(LogMessageResources.ValidatedItem, nameof(model.LastName)));
+
+            _logger.LogInformation($"End class {nameof(PostEmployeeRequestModelValidator)} and method {nameof(PostEmployeeRequestModelValidator.Validate)}");
 
             if (errorMessages.Any())
             {

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Core.Entities;
+using MediatR;
 
 namespace Services.Models.EmployeeModels.RequestModels
 {
@@ -19,5 +20,16 @@ namespace Services.Models.EmployeeModels.RequestModels
         public string LastName { get; set; }
 
         public DateTime BirthDate { get; set; }
+
+        public Employee ToEmployee()
+        {
+            return new Employee()
+            {
+                FirstName = FirstName,
+                MiddleName = MiddleName,
+                BirthDate = BirthDate,
+                LastName = LastName,
+            };
+        }
     }
 }

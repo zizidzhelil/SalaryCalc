@@ -11,10 +11,14 @@ namespace Services.Models.EmployeeModels.ResponseModels
             MiddleName = string.Empty;
             LastName = string.Empty;
             BirthDate = DateTime.MinValue;
+
+            EmployeeParameters = new List<EmployeeParameterResponseModel>();
         }
 
         public EmployeesResponseModel(Employee employee)
         {
+            EmployeeParameters = new List<EmployeeParameterResponseModel>();
+
             if (employee != null)
             {
                 Id = employee.Id;
@@ -22,14 +26,11 @@ namespace Services.Models.EmployeeModels.ResponseModels
                 MiddleName = employee.MiddleName;
                 LastName = employee.LastName;
                 BirthDate = employee.BirthDate;
-            }
-            else
-            {
-                Id = 0;
-                FirstName = string.Empty;
-                MiddleName = string.Empty;
-                LastName = string.Empty;
-                BirthDate = DateTime.MinValue;
+
+                if (employee.Parameters != null && employee.Parameters.Any())
+                {
+                    EmployeeParameters = employee.Parameters.Select(p => new EmployeeParameterResponseModel(p))?.ToList();
+                }
             }
         }
 
@@ -42,5 +43,7 @@ namespace Services.Models.EmployeeModels.ResponseModels
         public string LastName { get; set; }
 
         public DateTime BirthDate { get; set; }
+
+        public IList<EmployeeParameterResponseModel> EmployeeParameters { get; set; }
     }
 }

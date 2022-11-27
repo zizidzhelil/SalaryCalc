@@ -1,5 +1,4 @@
-﻿using Common.LogResources;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Queries;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -19,16 +18,11 @@ namespace DAL.Queries.GetEmpAnnualSalaryForYear
 
         public async Task<EmployeeParameter> HandleAsync(GetEmpAnnualSalaryForYearQuery query, CancellationToken cancellationToken = default)
         {
-            _logger.LogInformation(LogEvents.GettingItem, string.Format(LogMessageResources.GettingItem, nameof(EmployeeParameter), query.EmployeeId, query.Year));
+            _logger.LogInformation($"Begin class {nameof(GetEmpAnnualSalaryForYearQueryHandler)} and method {nameof(GetEmpAnnualSalaryForYearQueryHandler.HandleAsync)}");
             EmployeeParameter result = await _context.EmployeeParameter
-                .SingleOrDefaultAsync(x => x.EmployeeId == query.EmployeeId && x.Year == query.Year, cancellationToken);
+                .SingleOrDefaultAsync(x => x.EmployeeId == query.EmployeeId && x.Parameter.Year == query.Year, cancellationToken);
 
-            if (result == null)
-            {
-                _logger.LogWarning(LogEvents.GetItemNotFound, string.Format(LogMessageResources.GetItemNotFound, nameof(EmployeeParameter), query.EmployeeId, query.Year));
-            }
-
-            _logger.LogInformation(LogEvents.GotItem, string.Format(LogMessageResources.GotItem, nameof(EmployeeParameter)));
+            _logger.LogInformation($"End class {nameof(GetEmpAnnualSalaryForYearQueryHandler)} and method {nameof(GetEmpAnnualSalaryForYearQueryHandler.HandleAsync)}");
             return result;
         }
     }

@@ -10,10 +10,13 @@ namespace Core.Models
         [JsonPropertyName("employeeId")]
         public int EmployeeId { get; set; }
 
-        [JsonPropertyName("year")]
-        public int Year { get; set; }
+        [JsonPropertyName("parameterId")]
+        public int ParameterId { get; set; }
 
         [JsonPropertyName("annualSalary")]
         public double AnnualSalary { get; set; }
+
+        [JsonPropertyName("parameters")]
+        public ParameterModel Parameter { get; set; }
     }
 }

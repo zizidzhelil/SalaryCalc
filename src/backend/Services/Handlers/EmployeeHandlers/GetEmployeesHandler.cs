@@ -1,5 +1,4 @@
-﻿using Common.LogResources;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Queries;
 using DAL.Queries.GetAllEmployees;
 using MediatR;
@@ -9,7 +8,7 @@ using Services.Models.EmployeeModels.ResponseModels;
 
 namespace Services.Handlers.StudentHandlers
 {
-	public class GetEmployeesHandler : IRequestHandler<GetEmployeesRequestModel, IList<EmployeesResponseModel>>
+    public class GetEmployeesHandler : IRequestHandler<GetEmployeesRequestModel, IList<EmployeesResponseModel>>
 	{
         private readonly ILogger _logger;
         private readonly IQueryHandler<GetAllEmployeesQuery, IList<Employee>> _getAllEmployeesQueryHandler;
@@ -24,13 +23,14 @@ namespace Services.Handlers.StudentHandlers
 
 		public async Task<IList<EmployeesResponseModel>> Handle(GetEmployeesRequestModel request, CancellationToken cancellationToken)
 		{
-			IList<Employee> employees = await _getAllEmployeesQueryHandler.HandleAsync(new GetAllEmployeesQuery(), cancellationToken);
+            _logger.LogInformation($"Begin class {nameof(GetEmployeesHandler)} and method {nameof(GetEmployeesHandler.Handle)}");
 
-			_logger.LogInformation(LogEvents.AssemblingResponse, string.Format(LogMessageResources.AssemblingResponse, nameof(IList<EmployeesResponseModel>)));
+            IList<Employee> employees = await _getAllEmployeesQueryHandler.HandleAsync(new GetAllEmployeesQuery(), cancellationToken);
 			IList<EmployeesResponseModel> employeesResponse = employees.Select(e => new EmployeesResponseModel(e)).ToList();
-			_logger.LogInformation(LogEvents.AssembledResponse, string.Format(LogMessageResources.AssembledResponse, nameof(IList<EmployeesResponseModel>)));
 
-			return employeesResponse;
+            _logger.LogInformation($"End class {nameof(GetEmployeesHandler)} and method {nameof(GetEmployeesHandler.Handle)}");
+
+            return employeesResponse;
 		}
 	}
 }

@@ -1,7 +1,7 @@
-﻿using Common.LogResources;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Queries;
 using Core.Validation;
+using DAL.Queries.GetAllEmployees;
 using DAL.Queries.GetEmpAnnualSalaryForYear;
 using DAL.Queries.GetYearParams;
 using MediatR;
@@ -32,6 +32,7 @@ namespace Services.Handlers.CalculateSalaryHandlers
 
         public async Task<CalculateSalaryResponseModel> Handle(CalculateSalaryRequestModel request, CancellationToken cancellationToken)
         {
+            _logger.LogInformation($"Begin class {nameof(CalculateSalaryHandler)} and method {nameof(CalculateSalaryHandler.Handle)}");
             await _validator.Validate(request, cancellationToken);
 
             Parameter yearParameters = await _yearParamsQueryHandler.HandleAsync(new GetYearParamsQuery(request.Year), cancellationToken);
@@ -68,9 +69,8 @@ namespace Services.Handlers.CalculateSalaryHandlers
                 }
             }
 
-            _logger.LogInformation(LogEvents.AssemblingResponse, string.Format(LogMessageResources.AssemblingResponse, nameof(CalculateSalaryResponseModel)));
             CalculateSalaryResponseModel salaryAndTaxesResponse = new(salaryAndTaxes.NetSalary, salaryAndTaxes.TaxTotalIncome, salaryAndTaxes.TaxHealthAndSocialInsurance);
-            _logger.LogInformation(LogEvents.AssembledResponse, string.Format(LogMessageResources.AssembledResponse, nameof(CalculateSalaryResponseModel)));
+            _logger.LogInformation($"End class {nameof(CalculateSalaryHandler)} and method {nameof(CalculateSalaryHandler.Handle)}");
 
             return salaryAndTaxesResponse;
         }

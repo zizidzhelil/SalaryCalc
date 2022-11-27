@@ -47,5 +47,20 @@ namespace SalaryCalc.Tests.Controllers
 			mockMediator.Verify(x => x.Send(It.IsAny<PostEmployeeRequestModel>(), CancellationToken.None), Times.Once);
 			Assert.That(actual.StatusCode, Is.EqualTo(204));
 		}
-	}
+
+        [Test]
+        public async Task DeleteMethodTest()
+        {
+            var mockLogger = new Mock<ILogger<EmployeeController>>();
+            var mockMediator = new Mock<IMediator>();
+
+            mockMediator.Setup(x => x.Send(It.IsAny<int>(), CancellationToken.None));
+            EmployeeController employeeController = new EmployeeController(mockLogger.Object, mockMediator.Object);
+
+            var result = await employeeController.Delete(1);
+            var actual = result as NoContentResult;
+
+            Assert.That(actual.StatusCode, Is.EqualTo(204));
+        }
+    }
 }
